@@ -7,15 +7,15 @@
   
   <title>Mybatis学习 | hecn的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1.简介MyBatis 是一款优秀的持久层框架，它支持定制化 SQL、存储过程以及高级映射。MyBatis 避免了几乎所有的 JDBC 代码和手动设置参数以及获取结果集。MyBatis 可以使用简单的 XML 或注解来配置和映射原生类型、接口和 Java 的 POJO（Plain Old Java Objects，普通老式 Java 对象）为数据库中的记录。 2.第一个Mybatis程序3.CRU">
+  <meta name="description" content="# 1.简介 MyBatis 是一款优秀的持久层框架，它支持定制化 SQL、存储过程以及高级映射。MyBatis 避免了几乎所有的 JDBC 代码和手动设置参数以及获取结果集。MyBatis 可以使用简单的 XML 或注解来配置和映射原生类型、接口和 Java 的 POJO（Plain Old Java Objects，普通老式 Java 对象）为数据库中的记录。 2.第一个Mybatis程序3">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mybatis学习">
 <meta property="og:url" content="http://yoursite.com/2020/03/12/Mybatis%E5%AD%A6%E4%B9%A0/index.html">
 <meta property="og:site_name" content="hecn的博客">
-<meta property="og:description" content="1.简介MyBatis 是一款优秀的持久层框架，它支持定制化 SQL、存储过程以及高级映射。MyBatis 避免了几乎所有的 JDBC 代码和手动设置参数以及获取结果集。MyBatis 可以使用简单的 XML 或注解来配置和映射原生类型、接口和 Java 的 POJO（Plain Old Java Objects，普通老式 Java 对象）为数据库中的记录。 2.第一个Mybatis程序3.CRU">
+<meta property="og:description" content="# 1.简介 MyBatis 是一款优秀的持久层框架，它支持定制化 SQL、存储过程以及高级映射。MyBatis 避免了几乎所有的 JDBC 代码和手动设置参数以及获取结果集。MyBatis 可以使用简单的 XML 或注解来配置和映射原生类型、接口和 Java 的 POJO（Plain Old Java Objects，普通老式 Java 对象）为数据库中的记录。 2.第一个Mybatis程序3">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-03-12T09:59:02.922Z">
-<meta property="article:modified_time" content="2020-03-11T12:47:49.881Z">
+<meta property="article:modified_time" content="2020-03-12T11:58:28.068Z">
 <meta property="article:author" content="hecn">
 <meta name="twitter:card" content="summary">
   
@@ -88,7 +88,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h1><p>MyBatis 是一款优秀的持久层框架，它支持定制化 SQL、存储过程以及高级映射。MyBatis 避免了几乎所有的 JDBC 代码和手动设置参数以及获取结果集。MyBatis 可以使用简单的 XML 或注解来配置和映射原生类型、接口和 Java 的 POJO（Plain Old Java Objects，普通老式 Java 对象）为数据库中的记录。</p>
+        <p>﻿# 1.简介</p>
+<p>MyBatis 是一款优秀的持久层框架，它支持定制化 SQL、存储过程以及高级映射。MyBatis 避免了几乎所有的 JDBC 代码和手动设置参数以及获取结果集。MyBatis 可以使用简单的 XML 或注解来配置和映射原生类型、接口和 Java 的 POJO（Plain Old Java Objects，普通老式 Java 对象）为数据库中的记录。</p>
 <h1 id="2-第一个Mybatis程序"><a href="#2-第一个Mybatis程序" class="headerlink" title="2.第一个Mybatis程序"></a>2.第一个Mybatis程序</h1><h1 id="3-CRUD（增删改查）"><a href="#3-CRUD（增删改查）" class="headerlink" title="3.CRUD（增删改查）"></a>3.CRUD（增删改查）</h1><h1 id="4-配置解析"><a href="#4-配置解析" class="headerlink" title="4.配置解析"></a>4.配置解析</h1><h1 id="5-解决属性名和字段名不一致的问题"><a href="#5-解决属性名和字段名不一致的问题" class="headerlink" title="5.解决属性名和字段名不一致的问题"></a>5.解决属性名和字段名不一致的问题</h1><h1 id="6-日志"><a href="#6-日志" class="headerlink" title="6.日志"></a>6.日志</h1><h1 id="7-分页"><a href="#7-分页" class="headerlink" title="7.分页"></a>7.分页</h1><h1 id="8-使用注解开发"><a href="#8-使用注解开发" class="headerlink" title="8.使用注解开发"></a>8.使用注解开发</h1><h1 id="9-Lombok"><a href="#9-Lombok" class="headerlink" title="9.Lombok"></a>9.Lombok</h1><h1 id="10-多对一的处理"><a href="#10-多对一的处理" class="headerlink" title="10.多对一的处理"></a>10.多对一的处理</h1><h1 id="11-一对多"><a href="#11-一对多" class="headerlink" title="11.一对多"></a>11.一对多</h1><h1 id="12-动态Sql"><a href="#12-动态Sql" class="headerlink" title="12.动态Sql"></a>12.动态Sql</h1><h2 id="12-1-搭建环境"><a href="#12-1-搭建环境" class="headerlink" title="12.1.搭建环境"></a>12.1.搭建环境</h2><h2 id="12-2-IF"><a href="#12-2-IF" class="headerlink" title="12.2.IF"></a>12.2.IF</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryBlogIf"</span> <span class="attr">parameterType</span>=<span class="string">"map"</span> <span class="attr">resultType</span>=<span class="string">"com.wuhan.jiayou.pojo.Blog"</span>&gt;</span></span><br><span class="line">       select * from mybatis.blog</span><br><span class="line">       where 1=1</span><br><span class="line">       <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"title !=null"</span>&gt;</span></span><br><span class="line">           and title=#&#123;title&#125;</span><br><span class="line">       <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"author !=null"</span>&gt;</span></span><br><span class="line">           and author=#&#123;author&#125;</span><br><span class="line">       <span class="tag">&lt;/<span class="name">if</span>&gt;</span>;</span><br><span class="line">   <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h2 id="12-3-choose（when，otherwise）"><a href="#12-3-choose（when，otherwise）" class="headerlink" title="12.3.choose（when，otherwise）"></a>12.3.choose（when，otherwise）</h2><blockquote>
 <p>有时我们不想应用到所有的条件语句，而只想从中择其一项。针对这种情况，MyBatis 提供了 choose 元素，它有点像 Java 中的<strong><em>switch</em></strong>语句。</p>
@@ -199,7 +200,7 @@ iii.测试:<br>我们需要将实体类序列化,否则会报错</li>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/03/12/Mybatis%E5%AD%A6%E4%B9%A0/" data-id="ck7ooqyn60003a4u3b2hk536y" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/03/12/Mybatis%E5%AD%A6%E4%B9%A0/" data-id="ck7op9peq0002dku31io777pl" class="article-share-link">Share</a>
       
       
     </footer>
@@ -257,6 +258,10 @@ iii.测试:<br>我们需要将实体类序列化,否则会报错</li>
       <ul>
         
           <li>
+            <a href="/2020/03/12/hehhehhe/">hehhehhe</a>
+          </li>
+        
+          <li>
             <a href="/2020/03/12/Markdown%20%E8%AF%AD%E6%B3%95/">Markdown语法</a>
           </li>
         
@@ -270,10 +275,6 @@ iii.测试:<br>我们需要将实体类序列化,否则会报错</li>
         
           <li>
             <a href="/2020/03/12/SqlServer%E5%AF%BC%E5%87%BA%E4%B8%BAmdf/">SqlServer导出为mdf</a>
-          </li>
-        
-          <li>
-            <a href="/2020/03/12/Mybatis%E5%AD%A6%E4%B9%A0/">Mybatis学习</a>
           </li>
         
       </ul>
