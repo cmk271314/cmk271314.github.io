@@ -131,7 +131,7 @@
                   
                   <span class="post-meta">
                     <i class="far fa-chart-bar"></i>
-                    2.1k 字
+                    2.9k 字
                   </span>
                 
 
@@ -139,7 +139,7 @@
                   
                   <span class="post-meta">
                       <i class="far fa-clock"></i>
-                      8 分钟
+                      13 分钟
                   </span>
                 
 
@@ -167,9 +167,215 @@
           <div class="post-content mx-auto" id="post">
             
             <div class="markdown-body">
-              <p>﻿# 1.简介</p>
-<p>MyBatis 是一款优秀的持久层框架，它支持定制化 SQL、存储过程以及高级映射。MyBatis 避免了几乎所有的 JDBC 代码和手动设置参数以及获取结果集。MyBatis 可以使用简单的 XML 或注解来配置和映射原生类型、接口和 Java 的 POJO（Plain Old Java Objects，普通老式 Java 对象）为数据库中的记录。</p>
-<h1 id="2-第一个Mybatis程序"><a href="#2-第一个Mybatis程序" class="headerlink" title="2.第一个Mybatis程序"></a>2.第一个Mybatis程序</h1><h1 id="3-CRUD（增删改查）"><a href="#3-CRUD（增删改查）" class="headerlink" title="3.CRUD（增删改查）"></a>3.CRUD（增删改查）</h1><h1 id="4-配置解析"><a href="#4-配置解析" class="headerlink" title="4.配置解析"></a>4.配置解析</h1><h1 id="5-解决属性名和字段名不一致的问题"><a href="#5-解决属性名和字段名不一致的问题" class="headerlink" title="5.解决属性名和字段名不一致的问题"></a>5.解决属性名和字段名不一致的问题</h1><h1 id="6-日志"><a href="#6-日志" class="headerlink" title="6.日志"></a>6.日志</h1><h1 id="7-分页"><a href="#7-分页" class="headerlink" title="7.分页"></a>7.分页</h1><h1 id="8-使用注解开发"><a href="#8-使用注解开发" class="headerlink" title="8.使用注解开发"></a>8.使用注解开发</h1><h1 id="9-Lombok"><a href="#9-Lombok" class="headerlink" title="9.Lombok"></a>9.Lombok</h1><h1 id="10-多对一的处理"><a href="#10-多对一的处理" class="headerlink" title="10.多对一的处理"></a>10.多对一的处理</h1><h1 id="11-一对多"><a href="#11-一对多" class="headerlink" title="11.一对多"></a>11.一对多</h1><h1 id="12-动态Sql"><a href="#12-动态Sql" class="headerlink" title="12.动态Sql"></a>12.动态Sql</h1><h2 id="12-1-搭建环境"><a href="#12-1-搭建环境" class="headerlink" title="12.1.搭建环境"></a>12.1.搭建环境</h2><h2 id="12-2-IF"><a href="#12-2-IF" class="headerlink" title="12.2.IF"></a>12.2.IF</h2><pre><code class="xml"> &lt;select id=&quot;queryBlogIf&quot; parameterType=&quot;map&quot; resultType=&quot;com.wuhan.jiayou.pojo.Blog&quot;&gt;
+              <h1 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h1><ul>
+<li>MyBatis 是一款优秀的持久层框架，它支持定制化 SQL、存储过程以及高级映射。</li>
+<li>MyBatis 避免了几乎所有的 JDBC 代码和手动设置参数以及获取结果集。</li>
+<li>MyBatis 可以使用简单的 XML 或注解来配置和映射原生类型、接口和 Java 的 POJO（Plain Old Java Objects，普通老式 Java 对象）为数据库中的记录。</li>
+<li>MyBatis 本是apache的一个开源项目ibatis, 2010年这个项目由apache 迁移到了google code，并且改名为MyBatis 。</li>
+<li>2013年11月迁移到<strong>Github</strong> .</li>
+<li>Mybatis官方文档 :<a href="https://mybatis.org/mybatis-3/zh/index.html" target="_blank" rel="noopener">https://mybatis.org/mybatis-3/zh/index.html</a></li>
+<li>GitHub : <a href="https://github.com/mybatis/mybatis-3" target="_blank" rel="noopener">https://github.com/mybatis/mybatis-3</a></li>
+</ul>
+<h1 id="2-第一个Mybatis程序"><a href="#2-第一个Mybatis程序" class="headerlink" title="2.第一个Mybatis程序"></a>2.第一个Mybatis程序</h1><p><strong>环境：</strong></p>
+<ul>
+<li>jdk 8+</li>
+<li>MySQL 5.7+</li>
+<li>maven -3.6.0</li>
+<li>idea</li>
+</ul>
+<p><strong>需要掌握</strong>:</p>
+<ul>
+<li>jdbc</li>
+<li>mysql</li>
+<li>java基础</li>
+<li>maven</li>
+<li>junit</li>
+</ul>
+<p><strong>思路：搭建环境，导入Mybatis，编写代码，测试</strong></p>
+<ol>
+<li>创建实验数据库</li>
+</ol>
+<pre><code class="mysql">SET NAMES utf8 
+
+SET SQL_MODE=&#39;&#39;;
+
+ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 ;
+ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 ;
+ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE=&#39;NO_AUTO_VALUE_ON_ZERO&#39; ;
+ SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 ;
+CREATE DATABASE IF NOT EXISTS `mybatis` DEFAULT CHARACTER SET latin1 ;
+
+USE `mybatis`;
+
+/*Table structure for table `user` */
+
+DROP TABLE IF EXISTS `user`;
+
+CREATE TABLE `user` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) DEFAULT NULL,
+  `pwd` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=192 DEFAULT CHARSET=utf8;
+
+ SET SQL_MODE=@OLD_SQL_MODE ;
+ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS ;
+ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS ;
+ SET SQL_NOTES=@OLD_SQL_NOTES ;
+
+</code></pre>
+<ol start="2">
+<li>导入相关的jar包</li>
+</ol>
+<pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+    &lt;artifactId&gt;mybatis&lt;/artifactId&gt;
+    &lt;version&gt;3.5.2&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;mysql&lt;/groupId&gt;
+    &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+    &lt;version&gt;5.1.47&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+<ol start="3">
+<li>编写MyBatis核心配置文件</li>
+</ol>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;!DOCTYPE configuration
+        PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;
+        &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;
+&lt;configuration&gt;
+    &lt;environments default=&quot;development&quot;&gt;
+        &lt;environment id=&quot;development&quot;&gt;
+            &lt;transactionManager type=&quot;JDBC&quot;/&gt;
+            &lt;dataSource type=&quot;POOLED&quot;&gt;
+                &lt;property name=&quot;driver&quot; value=&quot;com.mysql.jdbc.Driver&quot;/&gt;
+                &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/mybatis?useSSL=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf8&quot;/&gt;
+                &lt;property name=&quot;username&quot; value=&quot;root&quot;/&gt;
+                &lt;property name=&quot;password&quot; value=&quot;admin&quot;/&gt;
+            &lt;/dataSource&gt;
+        &lt;/environment&gt;
+    &lt;/environments&gt;
+    &lt;mappers&gt;
+        &lt;mapper resource=&quot;com/hecn/dao/userMapper.xml&quot;/&gt;
+    &lt;/mappers&gt;
+&lt;/configuration&gt;</code></pre>
+<ol start="4">
+<li>编写工具类</li>
+</ol>
+<pre><code class="java">import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import java.io.IOException;
+import java.io.InputStream;
+
+public class MybatisUtils {
+
+    private static SqlSessionFactory sqlSessionFactory;
+
+    static {
+        try {
+            String resource = &quot;mybatis-config.xml&quot;;
+            InputStream inputStream = Resources.getResourceAsStream(resource);
+            sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //获取SqlSession连接
+    public static SqlSession getSession(){
+        return sqlSessionFactory.openSession();
+    }
+
+}</code></pre>
+<ol start="5">
+<li>创建实体类</li>
+</ol>
+<pre><code class="java">public class User {
+
+    private int id;  //id
+    private String name;   //姓名
+    private String pwd;   //密码
+
+    //构造,有参,无参
+    //set/get
+    //toString()
+
+}</code></pre>
+<ol start="6">
+<li>编写Mapper（dao层）接口类</li>
+</ol>
+<pre><code class="java">public class User {
+
+    private int id;  //id
+    private String name;   //姓名
+    private String pwd;   //密码
+
+    //构造,有参,无参
+    //set/get
+    //toString()
+
+}</code></pre>
+<ol start="7">
+<li>编写UserMapper.xml配置文件(映射器)</li>
+</ol>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;!DOCTYPE mapper
+        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
+        &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
+&lt;mapper namespace=&quot;com.hecn.dao.UserMapper&quot;&gt;
+  &lt;select id=&quot;selectUser&quot; resultType=&quot;com.hecn.pojo.User&quot;&gt;
+    select * from user
+  &lt;/select&gt;
+&lt;/mapper&gt;</code></pre>
+<ol start="8">
+<li>测试类</li>
+</ol>
+<pre><code class="java">public class MyTest {
+    @Test
+    public void selectUser() {
+        SqlSession session = MybatisUtils.getSession();
+        //方法一:
+        //List&lt;User&gt; users = session.selectList(&quot;com.kuang.mapper.UserMapper.selectUser&quot;);
+        //方法二:
+        UserMapper mapper = session.getMapper(UserMapper.class);
+        List&lt;User&gt; users = mapper.selectUser();
+
+        for (User user: users){
+            System.out.println(user);
+        }
+        session.close();
+    }
+}</code></pre>
+<ol start="9">
+<li>运行测试</li>
+</ol>
+<hr>
+<p><strong>Maven静态资源过滤问题</strong>:在pom文件中添加</p>
+<pre><code class="xml">&lt;build&gt;
+        &lt;resources&gt;
+            &lt;resource&gt;
+                &lt;directory&gt;src/main/resources&lt;/directory&gt;
+                &lt;includes&gt;
+                    &lt;include&gt;**/*.properties&lt;/include&gt;
+                    &lt;include&gt;**/*.xml&lt;/include&gt;
+                &lt;/includes&gt;
+                &lt;filtering&gt;true&lt;/filtering&gt;
+            &lt;/resource&gt;
+            &lt;resource&gt;
+                &lt;directory&gt;src/main/java&lt;/directory&gt;
+                &lt;includes&gt;
+                    &lt;include&gt;**/*.properties&lt;/include&gt;
+                    &lt;include&gt;**/*.xml&lt;/include&gt;
+                &lt;/includes&gt;
+                &lt;filtering&gt;true&lt;/filtering&gt;
+            &lt;/resource&gt;
+
+        &lt;/resources&gt;
+    &lt;/build&gt;</code></pre>
+<h1 id="3-CRUD（增删改查）"><a href="#3-CRUD（增删改查）" class="headerlink" title="3.CRUD（增删改查）"></a>3.CRUD（增删改查）</h1><h1 id="4-配置解析"><a href="#4-配置解析" class="headerlink" title="4.配置解析"></a>4.配置解析</h1><h1 id="5-解决属性名和字段名不一致的问题"><a href="#5-解决属性名和字段名不一致的问题" class="headerlink" title="5.解决属性名和字段名不一致的问题"></a>5.解决属性名和字段名不一致的问题</h1><h1 id="6-日志"><a href="#6-日志" class="headerlink" title="6.日志"></a>6.日志</h1><h1 id="7-分页"><a href="#7-分页" class="headerlink" title="7.分页"></a>7.分页</h1><h1 id="8-使用注解开发"><a href="#8-使用注解开发" class="headerlink" title="8.使用注解开发"></a>8.使用注解开发</h1><h1 id="9-Lombok"><a href="#9-Lombok" class="headerlink" title="9.Lombok"></a>9.Lombok</h1><h1 id="10-多对一的处理"><a href="#10-多对一的处理" class="headerlink" title="10.多对一的处理"></a>10.多对一的处理</h1><h1 id="11-一对多"><a href="#11-一对多" class="headerlink" title="11.一对多"></a>11.一对多</h1><h1 id="12-动态Sql"><a href="#12-动态Sql" class="headerlink" title="12.动态Sql"></a>12.动态Sql</h1><h2 id="12-1-搭建环境"><a href="#12-1-搭建环境" class="headerlink" title="12.1.搭建环境"></a>12.1.搭建环境</h2><h2 id="12-2-IF"><a href="#12-2-IF" class="headerlink" title="12.2.IF"></a>12.2.IF</h2><pre><code class="xml"> &lt;select id=&quot;queryBlogIf&quot; parameterType=&quot;map&quot; resultType=&quot;com.wuhan.jiayou.pojo.Blog&quot;&gt;
         select * from mybatis.blog
         where 1=1
         &lt;if test=&quot;title !=null&quot;&gt;
