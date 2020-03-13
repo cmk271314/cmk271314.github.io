@@ -76,6 +76,18 @@
     <content type="html"><![CDATA[<p><strong>Markdown插图片有三种方法，各种Markdown编辑器的插图方式也都包含在这三种方法之内。</strong></p><p>插图最基础的格式就是：</p><pre><code class="markdown">![alt 属性文本](图片地址)![alt 属性文本](图片地址 &quot;可选标题&quot;)</code></pre><ul><li>开头一个感叹号 !</li><li>接着一个方括号，里面放上图片的替代文字</li><li>接着一个普通括号，里面放上图片的网址，最后还可以用引号包住并加上选择性的 ‘title’ 属性的文字。</li></ul><p>当然，你也可以像网址那样对图片网址使用变量:</p><pre><code class="markdown">![alt 属性文本][01][01]: http://static.runoob.com/images/runoob-logo.png</code></pre><ol><li><strong>插入本地图片</strong></li></ol><p>只需要在基础语法的括号中填入图片的位置路径即可，支持绝对路径和相对路径2</p><pre><code class="markdown">![avatar](/user/desktop/doge.png)</code></pre><blockquote><p>缺点是不灵活不好分享，本地图片的路径更改或丢失都会造成markdown文件调不出图。</p></blockquote><ol start="2"><li><strong>插入网络图片</strong></li></ol><p>只需要在基础语法的括号中填入图片的网络链接即可，现在已经有很多免费/收费图床和方便传图的小工具可选。</p><pre><code class="markdown">![avatar](http://baidu.com/pic/doge.png)</code></pre><blockquote><p>缺点是图片存在网络服务器上，非常依赖网络。</p></blockquote><ol start="3"><li><strong>把图片存入markdown文件</strong></li></ol><p>用base64转码工具把图片转成一段字符串，然后把字符串填到基础格式中链接的那个位置。</p><ul><li>基础用法：</li></ul><pre><code class="markdown">![avatar](data:image/png;base64,iVBORw0......)</code></pre><p>这个时候会发现插入的这一长串字符串会把整个文章分割开，非常影响编写文章时的体验。<br>如果能够把大段的base64字符串放在文章末尾，然后在文章中通过一个id来调用，文章就不会被分割的这么乱了。就像写论文时的文末的注释和参考文档一样。<br>这个想法可以通过markdown的参考式链接语法来实现。</p><ul><li>进阶用法如下：</li></ul><p>文中引用语法：</p><pre><code class="markdown">![avatar][doge]</code></pre><p>文末存储字符串语法：</p><pre><code class="markdown">[doge]:data:image/png;base64,iVBORw0......</code></pre><blockquote><p>这个用法不常见，比较野路子。优点是很灵活，不会有链接失效的困扰。缺点是一大团base64的乱码看着不美观。</p></blockquote>]]></content>
     
     
+    <categories>
+      
+      <category>Markdown</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Markdown</tag>
+      
+    </tags>
     
   </entry>
   
@@ -89,6 +101,18 @@
     <content type="html"><![CDATA[<h1 id="1-为sql文件配置方言"><a href="#1-为sql文件配置方言" class="headerlink" title="1.为sql文件配置方言"></a>1.为sql文件配置方言</h1><p>打开    ：</p><pre><code>File | Settings | Languages &amp; Frameworks | SQL Dialects</code></pre><p><img src="https://img-blog.csdnimg.cn/2020021716484418.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDgxNjczNw==,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="idea为mysql添加方言"></p>]]></content>
     
     
+    <categories>
+      
+      <category>IDEA</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>IDEA</tag>
+      
+    </tags>
     
   </entry>
   
