@@ -131,7 +131,7 @@
                   
                   <span class="post-meta">
                     <i class="far fa-chart-bar"></i>
-                    8.1k 字
+                    8.7k 字
                   </span>
                 
 
@@ -139,7 +139,7 @@
                   
                   <span class="post-meta">
                       <i class="far fa-clock"></i>
-                      39 分钟
+                      42 分钟
                   </span>
                 
 
@@ -1198,77 +1198,149 @@ public class AnnotationPointCut {
 &lt;aop:aspectj-autoproxy /&gt;有一个proxy-target-class属性，默认为false，表示使用jdk动态代理织入增强，当配为&lt;aop:aspectj-autoproxy  poxy-target-class=&quot;true&quot;/&gt;时，表示使用CGLib动态代理技术织入增强。不过即使proxy-target-class设置为false，如果目标类没有声明接口，则spring将自动使用CGLib动态代理。</code></pre>
 <h1 id="12、整合Mybatis"><a href="#12、整合Mybatis" class="headerlink" title="12、整合Mybatis"></a>12、整合Mybatis</h1><p>步骤：</p>
 <ol>
-<li><p>导入jar包</p>
+<li>导入jar包</li>
+</ol>
 <ul>
-<li><p>junit 单元测试</p>
+<li>junit 单元测试</li>
+</ul>
 <pre><code class="xml">&lt;!--1.junit        --&gt;
-      &lt;dependency&gt;
-          &lt;groupId&gt;junit&lt;/groupId&gt;
-          &lt;artifactId&gt;junit&lt;/artifactId&gt;
-          &lt;version&gt;4.13&lt;/version&gt;
-      &lt;/dependency&gt;</code></pre>
-</li>
-<li><p>mybatis</p>
+        &lt;dependency&gt;
+            &lt;groupId&gt;junit&lt;/groupId&gt;
+            &lt;artifactId&gt;junit&lt;/artifactId&gt;
+            &lt;version&gt;4.13&lt;/version&gt;
+        &lt;/dependency&gt;</code></pre>
+<ul>
+<li>mybatis</li>
+</ul>
 <pre><code class="xml">&lt;!--2.mybatis--&gt;
-      &lt;dependency&gt;
-          &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
-          &lt;artifactId&gt;mybatis&lt;/artifactId&gt;
-          &lt;version&gt;3.5.4&lt;/version&gt;
-      &lt;/dependency&gt;</code></pre>
-</li>
-<li><p>mysql数据库</p>
-<pre><code class="xml">&lt;!--3.mysql--&gt;
-      &lt;dependency&gt;
-          &lt;groupId&gt;mysql&lt;/groupId&gt;
-          &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
-          &lt;version&gt;5.1.6&lt;/version&gt;
-      &lt;/dependency&gt;</code></pre>
-</li>
-<li><p>spring相关的</p>
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+            &lt;artifactId&gt;mybatis&lt;/artifactId&gt;
+            &lt;version&gt;3.5.4&lt;/version&gt;
+        &lt;/dependency&gt;</code></pre>
+<ul>
+<li>mysql数据库</li>
+</ul>
+<pre><code class="xml"> &lt;!--3.mysql--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;mysql&lt;/groupId&gt;
+            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+            &lt;version&gt;5.1.6&lt;/version&gt;
+        &lt;/dependency&gt;</code></pre>
+<ul>
+<li>spring相关的</li>
+</ul>
 <pre><code class="xml">&lt;!--4.spring相关--&gt;
-      &lt;dependency&gt;
-          &lt;groupId&gt;org.springframework&lt;/groupId&gt;
-          &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;
-          &lt;version&gt;5.2.4.RELEASE&lt;/version&gt;
-      &lt;/dependency&gt;
-      &lt;dependency&gt;
-          &lt;groupId&gt;org.springframework&lt;/groupId&gt;
-          &lt;artifactId&gt;spring-jdbc&lt;/artifactId&gt;
-          &lt;version&gt;5.2.4.RELEASE&lt;/version&gt;
-      &lt;/dependency&gt;</code></pre>
-</li>
-<li><p>aop织入</p>
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;
+            &lt;version&gt;5.2.4.RELEASE&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-jdbc&lt;/artifactId&gt;
+            &lt;version&gt;5.2.4.RELEASE&lt;/version&gt;
+        &lt;/dependency&gt;</code></pre>
+<ul>
+<li>aop织入</li>
+</ul>
 <pre><code class="java">&lt;!--5.aop织入--&gt;
 &lt;dependency&gt;
-  &lt;groupId&gt;org.aspectj&lt;/groupId&gt;
-  &lt;artifactId&gt;aspectjweaver&lt;/artifactId&gt;
-  &lt;version&gt;1.9.5&lt;/version&gt;
+    &lt;groupId&gt;org.aspectj&lt;/groupId&gt;
+    &lt;artifactId&gt;aspectjweaver&lt;/artifactId&gt;
+    &lt;version&gt;1.9.5&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
-</li>
-<li><p>mybatis-spring</p>
-<pre><code class="xml">&lt;!--6.mybatis-spring--&gt;
-      &lt;dependency&gt;
-          &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
-          &lt;artifactId&gt;mybatis-spring&lt;/artifactId&gt;
-          &lt;version&gt;2.0.3&lt;/version&gt;
-      &lt;/dependency&gt;</code></pre>
-</li>
+<ul>
+<li>mybatis-spring</li>
 </ul>
+<pre><code class="xml">&lt;!--6.mybatis-spring--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+            &lt;artifactId&gt;mybatis-spring&lt;/artifactId&gt;
+            &lt;version&gt;2.0.3&lt;/version&gt;
+        &lt;/dependency&gt;</code></pre>
 <ol start="2">
-<li><p>编写数据源配置</p>
-</li>
-<li><p>sqlSessionFactory：</p>
-</li>
-<li><p>sqlSessionTemplate：<code>SqlSessionTemplate</code> 是 MyBatis-Spring 的核心。作为 <code>SqlSession</code> 的一个实现，这意味着可以使用它无缝代替你代码中已经在使用的 <code>SqlSession</code>。<code>SqlSessionTemplate</code> 是线程安全的，可以被多个 DAO 或映射器所共享使用。</p>
-</li>
-<li><p>给接口加实现类</p>
-</li>
-<li><p>将自己写的实现类注入到spring容器中</p>
-</li>
-<li><p>测试</p>
-</li>
+<li>编写数据源配置:</li>
 </ol>
-</li>
+<pre><code class="xml"> &lt;!--1.DataSource:
+        正在使用 Spring + MyBatis，则没有必要在mybatis配置（mybatis-config）里配置事务管理器，
+        因为 Spring 模块会使用自带的管理器来覆盖前面mybatis的配置。
+        我们这里使用spring提供的jdbc：
+            org.springframework.jdbc.datasource.DriverManagerDataSource
+     --&gt;
+    &lt;bean id=&quot;dataSource&quot; class=&quot;org.springframework.jdbc.datasource.DriverManagerDataSource&quot;&gt;
+        &lt;property name=&quot;driverClassName&quot; value=&quot;com.mysql.jdbc.Driver&quot;/&gt;
+        &lt;property name=&quot;url&quot;
+                  value=&quot;jdbc:mysql://localhost:3306/mybatis?useSSL=false&amp;amp;characterEncoding=utf-8&amp;amp;serverTimezone=UTC&quot;/&gt;
+        &lt;property name=&quot;username&quot; value=&quot;root&quot;/&gt;
+        &lt;property name=&quot;password&quot; value=&quot;admin&quot;/&gt;
+    &lt;/bean&gt;</code></pre>
+<ol start="3">
+<li>sqlSessionFactory：</li>
+</ol>
+<pre><code class="xml">    &lt;!--2.sqlSessionFactory:
+    SqlSessionFactory 有一个唯一的必要属性：用于 JDBC 的 DataSource。
+    在 MyBatis-Spring中，可使用SqlSessionFactoryBean来创建 SqlSessionFactory。
+    要配置这个工厂 bean，只需要把下面代码放在 Spring 的 XML 配置文件中:
+    --&gt;
+    &lt;bean id=&quot;sqlSessionFactory&quot; class=&quot;org.mybatis.spring.SqlSessionFactoryBean&quot;&gt;
+        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;
+        &lt;!-- 绑定mybatis配置文件
+        一个常用的属性是 configLocation，它用来指定 MyBatis 的 XML 配置文件路径。
+        --&gt;
+        &lt;property name=&quot;configLocation&quot; value=&quot;classpath:mybatis-config.xml&quot;/&gt;
+        &lt;!-- mapperLocations属性接受多个资源位置。
+        这个属性可以用来指定 MyBatis 的映射器 XML 配置文件的位置。
+        属性的值是一个 Ant 风格的字符串，可以指定加载一个目录中的所有文件，或者从一个目录开始递归搜索所有目录。
+        --&gt;
+        &lt;property name=&quot;mapperLocations&quot; value=&quot;classpath:com/hecn/mapper/*.xml&quot;/&gt;
+    &lt;/bean&gt;</code></pre>
+<ol start="4">
+<li>sqlSessionTemplate：<code>SqlSessionTemplate</code> 是 MyBatis-Spring 的核心。作为 <code>SqlSession</code> 的一个实现，这意味着可以使用它无缝代替你代码中已经在使用的 <code>SqlSession</code>。<code>SqlSessionTemplate</code> 是线程安全的，可以被多个 DAO 或映射器所共享使用。</li>
+</ol>
+<pre><code class="xml">    &lt;!--3.SqlSessionTemplate:就是我们使用的SqlSession
+    可以使用 SqlSessionFactory 作为构造方法的参数来创建 SqlSessionTemplate 对象。--&gt;
+    &lt;bean id=&quot;session&quot; class=&quot;org.mybatis.spring.SqlSessionTemplate&quot;&gt;
+        &lt;!-- 只能使用构造方法注入sqlsessionFactory，因为它没有set方法       --&gt;
+        &lt;constructor-arg name=&quot;sqlSessionFactory&quot; ref=&quot;sqlSessionFactory&quot;/&gt;
+        &lt;!--和上面等价&lt;constructor-arg index=&quot;0&quot; ref=&quot;sqlSessionFactory&quot;/&gt;--&gt;
+    &lt;/bean&gt;</code></pre>
+<ol start="5">
+<li>给接口加实现类</li>
+</ol>
+<pre><code class="java">package com.hecn.mapper;
+
+import com.hecn.pojo.User;
+import lombok.Setter;
+import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
+
+import java.util.List;
+
+@Setter
+public class UserMapperImpl implements UserMapper {
+  /**
+   * 在原来，我们所有的操作都使用sqlsession来执行;
+   *
+   * &lt;p&gt;现在，都使用sqlsessionTemplate;
+   */
+  private SqlSession sqlSession;
+
+  /** @return 查询用户 */
+  public List&lt;User&gt; selectUser() {
+//    UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+//    return mapper.selectUser();
+    return sqlSession.getMapper(UserMapper.class).selectUser();
+  }
+}</code></pre>
+<ol start="6">
+<li>将自己写的实现类注入到spring容器中</li>
+</ol>
+<pre><code class="xml">&lt;bean id=&quot;userMapper&quot; class=&quot;com.hecn.mapper.UserMapperImpl&quot;&gt;
+        &lt;property name=&quot;sqlSession&quot; ref=&quot;session&quot;/&gt;
+    &lt;/bean&gt;</code></pre>
+<ol start="7">
+<li>测试</li>
 </ol>
 <h1 id="13-Spring-声明式事务"><a href="#13-Spring-声明式事务" class="headerlink" title="13.Spring 声明式事务"></a>13.Spring 声明式事务</h1><h2 id="13-1、事务"><a href="#13-1、事务" class="headerlink" title="13.1、事务"></a>13.1、事务</h2><ul>
 <li>事务在项目开发过程非常重要，涉及到数据的一致性的问题，不容马虎！</li>
