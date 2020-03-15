@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>SpringMVC:1、简介</title>
+    <link href="/2020/03/15/SpringMVC-1%E3%80%81%E7%AE%80%E4%BB%8B/"/>
+    <url>/2020/03/15/SpringMVC-1%E3%80%81%E7%AE%80%E4%BB%8B/</url>
+    
+    <content type="html"><![CDATA[<h1 id="SpringMVC"><a href="#SpringMVC" class="headerlink" title="SpringMVC"></a>SpringMVC</h1><p><strong>ssm:mybatis+spring+springmvc</strong> <strong>MVC三层架构</strong></p><p>Spring Web MVC是基于Servlet API构建的原始Web框架，并且从一开始就已包含在Spring框架中。 正式名称“ Spring Web MVC”来自其源模块的名称（spring-webmvc），但通常称为“ Spring MVC”。</p><h1 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h1><ul><li>MVC全名是Model View Controller，是模型(model)－视图(view)－控制器(controller)的缩写，一种软件设计典范。</li><li>用一种业务逻辑、数据、界面显示分离的方法组织代码。</li><li>MVC主要作用是<strong>降低了视图与业务逻辑间的双向偶合</strong>。</li><li>MVC不是一种设计模式，<strong>MVC是一种架构模式</strong>。当然不同的MVC存在差异。</li></ul><p><strong>MVC要实现的目标是将软件用户界面和业务逻辑分离以使代码可扩展性、可复用性、可维护性、灵活性加强。</strong></p><p>View层是界面，Model层是业务逻辑，Controller层用来调度View层和Model层，将用户界面和业务逻辑合理的组织在一起，起粘合剂的效果。所以Controller中的内容能少则少，这样才能提供最大的灵活性。</p><p><strong>Model（模型）：</strong>数据模型，提供要展示的数据，因此包含数据和行为，可以认为是领域模型或JavaBean组件（包含数据和行为），不过现在一般都分离开来：Value Object（数据Dao） 和 服务层（行为Service）。也就是模型提供了模型数据查询和模型数据的状态更新等功能，包括数据和业务。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>SpringMVC</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>MVC</tag>
+      
+      <tag>SpringMVC</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Spring-Learn</title>
     <link href="/2020/03/14/Spring-Learn/"/>
     <url>/2020/03/14/Spring-Learn/</url>

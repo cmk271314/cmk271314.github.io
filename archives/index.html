@@ -139,12 +139,18 @@
                 
 
 <div class="list-group">
-  <p class="h4">共计 10 篇文章</p>
+  <p class="h4">共计 11 篇文章</p>
   <hr>
   
     
       
       <p class="h5">2020</p>
+    
+    <a href="/2020/03/15/SpringMVC-1%E3%80%81%E7%AE%80%E4%BB%8B/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">SpringMVC:1、简介</span>
+      <span style="float: right;">03-15</span>
+    </a>
+  
     
     <a href="/2020/03/14/Spring-Learn/" class="list-group-item list-group-item-action">
       <span class="archive-post-title">Spring-Learn</span>
@@ -199,13 +205,19 @@
       <span style="float: right;">03-12</span>
     </a>
   
-    
-    <a href="/2020/03/12/hello-world/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Hello World</span>
-      <span style="float: right;">03-12</span>
-    </a>
-  
 </div>
+
+  <nav aria-label="index posts navigation">
+    <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/"><i class="fas fa-angle-double-right"></i></a>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByClassName("page-number")) {
+      ele.href += '#board';
+    }
+  </script>
 
 
 
@@ -246,6 +258,28 @@
   </div>
 </div>
   
+
+  
+    <!-- APlayer 音乐播放器 -->
+    <div id="aplayer"></div>
+    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
+<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+<script type="text/javascript">
+  var oldLoad = window.onload;
+  window.onload = function () {
+    new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      autoplay: 'false' === 'true',
+      loop: 'all',
+      order: 'random',
+      theme: '#b7daff',
+      preload: 'none',
+      audio: [{"name":"说好不哭","artist":"周杰伦","url":"/songs/说好不哭（with 五月天阿信） - 周杰伦.flac","cover":"https://y.gtimg.cn/music/photo_new/T002R300x300M000002gBTVk4JEE2T_2.jpg?max_age=2592000","lrc":"/songs/说好不哭（with 五月天阿信） - 周杰伦.lrc"},{"name":"Like You","artist":"G.E.M.","url":"/songs/喜欢你-G.E.M.邓紫棋.flac","cover":"https://y.gtimg.cn/music/photo_new/T002R300x300M000003voidC3p6EQe_1.jpg?max_age=2592000","lrc":"/songs/喜欢你-G.E.M.邓紫棋.lrc"}]
+    });
+    oldLoad && oldLoad();
+  }
+</script>
 
   
 

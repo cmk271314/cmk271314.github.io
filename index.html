@@ -147,6 +147,51 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a href="/2020/03/15/SpringMVC-1%E3%80%81%E7%AE%80%E4%BB%8B/">
+        <p class="h4 index-header">SpringMVC:1、简介</p>
+      </a>
+
+      <a href="/2020/03/15/SpringMVC-1%E3%80%81%E7%AE%80%E4%BB%8B/">
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">SpringMVCssm:mybatis+spring+springmvc MVC三层架构
+Spring Web MVC是基于Servlet API构建的原始Web框架，并且从一开始就已包含在Spring框架中。 正式名称“ Spring Web MVC”来自其源模块的名称（spring-webmvc），但通常称为“ Spring MVC”。
+MVC
+MVC全名是Model View Controller，是模型(model)－视图(view)－控制器(controller)的缩写，一种软件设计典范。
+用一种业务逻辑、数据、界面显示分离的方法组织代码。
+MVC主要作用是降低了视图与业务逻辑间的</div>
+        </div>
+      </a>
+
+      <div class="index-btm">
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-15&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/SpringMVC/">SpringMVC</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/MVC/">MVC</a>&nbsp;
+          
+            <a href="/tags/SpringMVC/">SpringMVC</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a href="/2020/03/14/Spring-Learn/">
         <p class="h4 index-header">Spring-Learn</p>
       </a>
@@ -549,38 +594,19 @@ File | Settings | Languages &amp; Frameworks | SQL Dialects
     </div>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a href="/2020/03/12/hello-world/">
-        <p class="h4 index-header">Hello World</p>
-      </a>
-
-      <a href="/2020/03/12/hello-world/">
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick StartCreate a new post$ hexo new &quot;My New Post&quot;
-More info: Writing
-Run server$ hexo server</div>
-        </div>
-      </a>
-
-      <div class="index-btm">
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-03-12&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
 
 
+  <nav aria-label="index posts navigation">
+    <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-angle-double-right"></i></a>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByClassName("page-number")) {
+      ele.href += '#board';
+    }
+  </script>
 
 
 
@@ -621,6 +647,28 @@ Run server$ hexo server</div>
   </div>
 </div>
   
+
+  
+    <!-- APlayer 音乐播放器 -->
+    <div id="aplayer"></div>
+    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
+<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+<script type="text/javascript">
+  var oldLoad = window.onload;
+  window.onload = function () {
+    new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      autoplay: 'false' === 'true',
+      loop: 'all',
+      order: 'random',
+      theme: '#b7daff',
+      preload: 'none',
+      audio: [{"name":"说好不哭","artist":"周杰伦","url":"/songs/说好不哭（with 五月天阿信） - 周杰伦.flac","cover":"https://y.gtimg.cn/music/photo_new/T002R300x300M000002gBTVk4JEE2T_2.jpg?max_age=2592000","lrc":"/songs/说好不哭（with 五月天阿信） - 周杰伦.lrc"},{"name":"Like You","artist":"G.E.M.","url":"/songs/喜欢你-G.E.M.邓紫棋.flac","cover":"https://y.gtimg.cn/music/photo_new/T002R300x300M000003voidC3p6EQe_1.jpg?max_age=2592000","lrc":"/songs/喜欢你-G.E.M.邓紫棋.lrc"}]
+    });
+    oldLoad && oldLoad();
+  }
+</script>
 
   
 
