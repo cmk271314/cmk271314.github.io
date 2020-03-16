@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="hecn">
+  <meta name="keywords" content="">
+  <title>Java:3、Java的基本程序设计结构 - hecn的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link defer rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>hecn的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">归档</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">分类</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">标签</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">关于</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  星期一, 三月 16日 2020, 6:53 晚上
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    2.5k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      9 分钟
+                  </span>
+                
+
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5 z-depth-3" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <div class="markdown-body">
+              <h1 id="1、一个简单的Java程序"><a href="#1、一个简单的Java程序" class="headerlink" title="1、一个简单的Java程序"></a>1、一个简单的Java程序</h1><p>一个简单的Java应用程序：</p>
+<pre><code class="java">public class FirstSample
+{
+   public static void main(String[] args)
+   {
+      System.out.println(&quot;We will not use &#39;Hello, World!&#39;&quot;);
+   }
+}</code></pre>
+<ul>
+<li>Java区分大小写</li>
+<li>关键字<code>public</code>称为访问修饰符（access modifier），这些修饰符用于控制程序的其他部分对这段代码的访问级别。</li>
+<li>关键字<code>class</code>表明Java程序中的全部内容都包含在类中。<ul>
+<li>类作为一个加载程序逻辑的容器，程序逻辑定义了应用程序的行为。</li>
+</ul>
+</li>
+<li>关键字class后面紧跟类名。Java中定义类名的规则很宽松。名字必须以<strong>字母</strong>开头，后面可以跟字母和数字的任意组合。长度基本上没有限制。但是不能使用Java保留字（例如，public或class）作为类名。</li>
+<li>类的标准命名：驼峰命名法: 类名是以<strong>大写字母开头</strong>的名词。如果名字由多个单词组成，每个单词的第一个字母都应该大写。</li>
+<li>源代码的文件名必须与公共类的名字相同，并用.java作为扩展名。也区分大小写。</li>
+<li>在Java中，每条语句必须用分号结束。</li>
+<li>采用双引号分隔字符串。</li>
+</ul>
+<p>执行流程：</p>
+<ol>
+<li><p>编译xxx.java之后就会得到一个包含这个类<strong>字节码</strong>的文件。Java编译器(javac)将字节码文件<strong>自动地命名</strong>为FirstSample.class，并与xxx.java存储在同一个目录下。</p>
+</li>
+<li><p>使用<code>java xxx</code> :运行已编译的的程序时，Java虚拟机将从指定类中的main方法开始执行（这里的“方法”就是Java中所说的“函数”），因此为了代码能够执行，在类的源文件中<strong>必须包含一个main方法</strong>。</p>
+</li>
+</ol>
+<hr>
+<h1 id="2、注释"><a href="#2、注释" class="headerlink" title="2、注释"></a>2、注释</h1><ul>
+<li><p>注释不会出现在可执行程序中</p>
+</li>
+<li><p>在Java中，有3种标记注释的方式。</p>
+<pre><code class="java">// 第一种注释，从//开始到本行结束    </code></pre>
+<pre><code class="java">//使用/*和*/将一段很长的注释括起来
+/* 使用将一段比较长的注释括起来，DC 漫画改编美剧《蝙蝠女侠》（Batwoman）发布首支预告，先前在 CW 绿箭宇宙交叉集「异世界」（Elseworlds）率先登场的角色，如今将要展开自己的冒险旅程。*/
+/**/注释不能嵌套。</code></pre>
+</li>
+</ul>
+<pre><code class="java">//第3种注释可以用来自动地生成文档。这种注释以/**开始，以*/结束。
+/**DC 漫画改编美剧《蝙蝠女侠》（Batwoman）发布首支预告，先前在 CW 绿箭宇宙交叉集「异世界」（Elseworlds）率先登场的角色，如今将要展开自己的冒险旅程。DC 漫画改编美剧《蝙蝠女侠》（Batwoman）发布首支预告，先前在 CW 绿箭宇宙交叉集「异世界」（Elseworlds）率先登场的角色，如今将要展开自己的冒险旅程。*/</code></pre>
+<hr>
+<h1 id="3、数据类型"><a href="#3、数据类型" class="headerlink" title="3、数据类型"></a>3、数据类型</h1><p>Java是一种强类型语言。这就意味着必须为每一个变量声明一种类型。</p>
+<ul>
+<li>强类型语言：也称为强类型定义语言。是一种总是强制类型定义的语言，要求变量的使用要严格符合定义，所有变量都必须先定义后使用。eg:java、.NET、C/C++</li>
+<li>弱类型语言：也称为弱类型定义语言。数据类型可以被忽略的语言。它与强类型定义语言相反, 一个变量可以赋不同数据类型的值。 eg:vb,php…</li>
+</ul>
+<p>在Java中，一共有<strong>8种基本类型</strong>（primitive type），其中有4种整型(int,long,short,)、2种浮点类型(float,double)、1种用于表示Unicode编码的字符单元的字符类型char（请参见论述char类型的章节）和1种用于表示真值的boolean类型。</p>
+<blockquote>
+<p>Java有一个能够表示任意精度的算术包，通常称为“大数值”（big number）。虽然被称为大数值，但它并不是一种新的Java类型，而是一个<strong>Java对象</strong>。</p>
+</blockquote>
+<h2 id="3-1、整型"><a href="#3-1、整型" class="headerlink" title="3.1、整型"></a>3.1、整型</h2><p>整型用于表示没有小数部分的数值，它允许是负数。Java提供了4种整型：</p>
+<table>
+<thead>
+<tr>
+<th>类型名称</th>
+<th>关键字</th>
+<th>存储要求</th>
+<th>取值范围</th>
+<th>作为成员变量的默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>字节型</td>
+<td>byte</td>
+<td>1字节（B）=8 位（bit）</td>
+<td>-128(-2^7)~127（2^7-1）</td>
+<td>0</td>
+</tr>
+<tr>
+<td>短整型</td>
+<td>short</td>
+<td>2</td>
+<td>-32768（2^15）~32767（2^15-1）</td>
+<td>0</td>
+</tr>
+<tr>
+<td>整型</td>
+<td>int</td>
+<td>4</td>
+<td>-2,147,483,648‬（2^31）~2,147,483,647（2^31-1）</td>
+<td>0</td>
+</tr>
+<tr>
+<td>长整型</td>
+<td>long</td>
+<td>8</td>
+<td>-9,223,372,036,854,775,808‬（2^63）~9,223,372,036,854,775,807（2^63-1）</td>
+<td>0L</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>在通常情况下，int类型最常用。数据很大的时候用long</p>
+</li>
+<li><p>byte和short类型主要用于特定的应用场合，例如，底层的文件处理或者需要控制占用存储空间量的大数组。</p>
+</li>
+<li><p>整型的范围与运行Java代码的机器无关。这就解决了软件从一个平台移植到另一个平台，或者在同一个平台中的不同操作系统之间进行移植给程序员带来的诸多问题。</p>
+</li>
+<li><p>Java程序必须保证在所有机器上都能够得到相同的运行结果，所以各种数据类型的取值范围必须固定。</p>
+</li>
+</ul>
+<pre><code class="java">    //长整型数值有一个后缀L或l（如4000000000L）。
+    4000000000L
+    //十六进制数值有一个前缀0x或0X（如0xCAFE）。
+    0xCAFE
+    0XCAFE
+    //八进制有一个前缀0，例如，010对应八进制中的8。很显然，八进制表示法比较容易混淆，所以建议最好不要使用八进制常数。
+    010
+    //加上前缀0b或0B就可以写二进制数
+    0b1001
+    0B1001
+    //可以为数字字面量加下划线，如用1_000_000（或0b1111_0100_0010_0100_0000）表示一百万。这些下划线只是为了让人更易读。Java编译器会去除这些下划线。
+    1_000_000</code></pre>
+<ul>
+<li>Java没有任何无符号（unsigned）形式的int、long、short或byte类型。</li>
+</ul>
+<h2 id="3-2、浮点类型"><a href="#3-2、浮点类型" class="headerlink" title="3.2、浮点类型"></a>3.2、浮点类型</h2><p>浮点类型用于表示有小数部分的数值。在Java中有两种浮点类型:</p>
+<table>
+<thead>
+<tr>
+<th>类型名称</th>
+<th>关键字</th>
+<th>存储要求</th>
+<th>取值范围</th>
+<th>作为成员变量的默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单精度浮点型</td>
+<td>float</td>
+<td>4字节(B)</td>
+<td>-3.403E38~3.403E38</td>
+<td>0.0F</td>
+</tr>
+<tr>
+<td>双精度浮点型</td>
+<td>double</td>
+<td>8字节（B）</td>
+<td>-1.798E308~1.798E308</td>
+<td>0.0D</td>
+</tr>
+</tbody></table>
+<ul>
+<li>double表示这种类型的数值精度是float类型的两倍（有人称之为双精度数值）。<strong>绝大部分应用程序都采用double类型。</strong>在很多情况下，float类型的精度很难满足需求。实际上，只有很少的情况适合使用float类型，例如，需要单精度数据的库，或者需要存储大量数据。</li>
+<li>float类型的数值有一个后缀F或f（例如，3.14F）。没有后缀F的浮点数值（如3.14）默认为double类型。当然，也可以在浮点数值后面添加后缀D或d（例如，3.14D）。</li>
+</ul>
+<pre><code class="java">3.14F//float型
+3.14f//float型
+3.14 //默认位double类型
+3.14159D//double型
+3.14159d//double型</code></pre>
+<ul>
+<li><p>所有的浮点数值计算都遵循IEEE 754规范。</p>
+<ul>
+<li><p>溢出或者出错三个特殊浮点数值：</p>
+<ul>
+<li>正无穷大： eg:<code>12/0</code> 正整数除以0的结果为正无穷大</li>
+<li>负无穷大:    </li>
+<li>NaN（不是一个数字）: eg:计算0/0或者负数的平方根结果为NaN。</li>
+</ul>
+</li>
+<li><p>常量Double.POSITIVE_INFINITY、Double.NEGATIVE_INFINITY和Double.NaN（以及相应的Float类型的常量）分别表示这三个特殊的值，但在实际应用中很少遇到。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-3、char类型"><a href="#3-3、char类型" class="headerlink" title="3.3、char类型"></a>3.3、char类型</h2><p>char类型原本用于表示单个字符。不过，现在情况已经有所变化。如今，有些Unicode字符可以用一个char值描述，另外一些Unicode字符则需要两个char值。</p>
+<p>char类型的字面量值要用单引号括起来。</p>
+<blockquote>
+<p><strong>我们强烈建议不要在程序中使用char类型，除非确实需要处理UTF-16代码单元。最好将字符串作为抽象数据类型处理</strong>  </p>
+</blockquote>
+<h2 id="3-4、boolean类型"><a href="#3-4、boolean类型" class="headerlink" title="3.4、boolean类型"></a>3.4、boolean类型</h2><ul>
+<li><p>boolean（布尔）类型有两个值：false和true，用来判定逻辑条件。</p>
+</li>
+<li><p>整型值和布尔值之间不能进行相互转换。</p>
+</li>
+</ul>
+<hr>
+<h1 id="4、变量"><a href="#4、变量" class="headerlink" title="4、变量"></a>4、变量</h1><h2 id="4-1、变量"><a href="#4-1、变量" class="headerlink" title="4.1、变量"></a>4.1、变量</h2><p>在Java中，每个变量都有一个类型（type）。</p>
+<ol>
+<li>在声明变量时，变量的类型位于变量名之前。</li>
+</ol>
+<pre><code class="java">double salary;
+int userId;
+long earthPeople;
+boolean isTrue;</code></pre>
+<ul>
+<li>变量名必须是一个以字母开头并由字母或数字构成的序列。</li>
+<li>变量名中所有的字符都是有意义的，并且大小写敏感。变量名的长度基本上没有限制。</li>
+<li>不能使用Java保留字作为变量名</li>
+</ul>
+<ol start="2">
+<li>变量初始化</li>
+</ol>
+<p>声明一个变量之后，<strong>必须用赋值语句对变量进行显式初始化</strong>，千万不要使用未初始化的变量。</p>
+<pre><code class="java">double salary;
+salary=3.14d;
+int i=4;//可以将变量的声明和初始化放在同一行中
+//在Java中，变量的声明尽可能地靠近变量第一次使用的地方，这是一种良好的程序编写风格。</code></pre>
+<p><strong>注意：在Java中，不区分变量的声明与定义。</strong></p>
+<h2 id="4-2、常量"><a href="#4-2、常量" class="headerlink" title="4.2、常量"></a>4.2、常量</h2><p>在Java中，利用关键字final指示常量。</p>
+<pre><code class="java">final double PAI_ZHI=3.1415;
+</code></pre>
+<ul>
+<li>关键字final表示这个变量只能被赋值一次。(常量相当于一种特殊的变量)</li>
+<li>一旦被赋值之后，就不能够再更改了。</li>
+<li>习惯上，常量名使用全大写。</li>
+</ul>
+<p>在Java中，经常希望某个常量可以在一个类中的多个方法中使用，通常将这些常量称为<strong>类常量</strong>。可以使用关键字<code>static final</code>设置一个类常量。</p>
+<pre><code class="java">public class HelloWord{
+    public static final double PAI_ZHI=3.1415;
+     public static void main(String[] args)
+   {
+      System.out.println(&quot;We will not use &#39;Hello, World!&#39;&quot;);
+   }
+}</code></pre>
+<p>需要注意，类常量的定义位于main方法的外部。因此，在同一个类的其他方法中也可以使用这个常量。而且，如果一个常量被声明为public，那么其他类的方法也可以使用这个常量。</p>
+<h1 id="5、运算符"><a href="#5、运算符" class="headerlink" title="5、运算符"></a>5、运算符</h1><h1 id="6、字符串"><a href="#6、字符串" class="headerlink" title="6、字符串"></a>6、字符串</h1><h1 id="7、输入输出"><a href="#7、输入输出" class="headerlink" title="7、输入输出"></a>7、输入输出</h1><h1 id="8、控制流程"><a href="#8、控制流程" class="headerlink" title="8、控制流程"></a>8、控制流程</h1><h1 id="9、大数值"><a href="#9、大数值" class="headerlink" title="9、大数值"></a>9、大数值</h1><h1 id="10、数组"><a href="#10、数组" class="headerlink" title="10、数组"></a>10、数组</h1>
+            </div>
+            <hr>
+            <div>
+              <p>
+                
+                  <span>
+                <i class="iconfont icon-inbox"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
+                      &nbsp;
+                    
+                  </span>&nbsp;&nbsp;
+                
+                
+                  <span>
+                <i class="iconfont icon-tag"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Java/">Java</a>
+                    
+                  </span>
+                
+              </p>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc-start"></div>
+<div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+    <!-- APlayer 音乐播放器 -->
+    <div id="aplayer"></div>
+    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
+<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+<script type="text/javascript">
+  var oldLoad = window.onload;
+  window.onload = function () {
+    new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      autoplay: 'false' === 'true',
+      loop: 'all',
+      order: 'random',
+      theme: '#b7daff',
+      preload: 'none',
+      audio: [{"name":"说好不哭","artist":"周杰伦","url":"/songs/说好不哭（with 五月天阿信） - 周杰伦.flac","cover":"https://y.gtimg.cn/music/photo_new/T002R300x300M000002gBTVk4JEE2T_2.jpg?max_age=2592000","lrc":"/songs/说好不哭（with 五月天阿信） - 周杰伦.lrc"},{"name":"Like You","artist":"G.E.M.","url":"/songs/喜欢你-G.E.M.邓紫棋.flac","cover":"https://y.gtimg.cn/music/photo_new/T002R300x300M000003voidC3p6EQe_1.jpg?max_age=2592000","lrc":"/songs/喜欢你-G.E.M.邓紫棋.lrc"}]
+    });
+    oldLoad && oldLoad();
+  }
+</script>
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var post = $('#post');
+      var toc = $('#toc');
+      var tocLimMax = post.offset().top + post.height() - navHeight;
+
+      $(window).scroll(function () {
+        var tocLimMin = $('#toc-start').offset().top - navHeight;
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': navHeight,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+      var offset = $('#board-ctn').css('margin-right')
+      $('#toc-ctn').css({
+        'right': offset
+      })
+    });
+  </script>
+
+
+
+
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Java:3、Java的基本程序设计结构&nbsp;",
+      ],
+      cursorChar: "❤",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
