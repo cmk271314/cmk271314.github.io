@@ -4,11 +4,36 @@
   
   
   <entry>
+    <title>Java:1、Java概述</title>
+    <link href="/2020/03/15/Java-1%E3%80%81Java%E6%A6%82%E8%BF%B0/"/>
+    <url>/2020/03/15/Java-1%E3%80%81Java%E6%A6%82%E8%BF%B0/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><ul><li><p>Java是一门<strong>面向对象编程</strong>语言，不仅吸收了C++语言的各种优点，还摒弃了C++里难以理解的多继承、指针等概念，因此Java语言具有<strong>功能强大</strong>和<strong>简单易用</strong>两个特征。Java语言作为静态面向对象编程语言的代表，极好地实现了面向对象理论，允许程序员以优雅的思维方式进行复杂的编程。</p></li><li><p>Java是一个完整的平台，有一个庞大的库，其中包含了很多可重用的代码和一个提供诸如安全性、跨操作系统的可移植性以及自动垃圾收集等服务的执行环境。</p></li><li><p>Java是一种功能齐全的出色语言，是一个高质量的执行环境，还提供了一个庞大的库。</p></li></ul><h1 id="Java“白皮书”的关键术语"><a href="#Java“白皮书”的关键术语" class="headerlink" title="Java“白皮书”的关键术语"></a>Java“白皮书”的关键术语</h1><p>1）简单性</p><ul><li>Java语法是C++语法的一个“纯净”版本。这里没有头文件、指针运算（甚至指针语法）、结构、联合、操作符重载、虚基类等。”C++–”</li><li>简单的另一个方面是小。Java的目标之一是支持开发能够在小型机器上独立运行的软件。Java微型版（Java Micro Edition）</li></ul><p>2）面向对象</p><ul><li>面向对象设计是一种程序设计技术。它将重点放在数据（即对象）和对象的接口上。</li><li>Java与C++的主要不同点在于多重继承，在Java中，取而代之的是更简单的接口概念。与C++相比，Java提供了更丰富的运行时自省功能</li></ul><p>3）分布式</p><ul><li>Java有一个丰富的例程库，用于处理像HTTP和FTP之类的TCP/IP协议。Java应用程序能够通过URL打开和访问网络上的对象，其便捷程度就好像访问本地文件一样。</li></ul><p>4）健壮性</p><ul><li>Java的设计目标之一在于使得Java编写的程序具有多方面的可靠性。</li><li>Java采用的指针模型可以消除重写内存和损坏数据的可能性。</li><li>Java编译器能够检测许多在其他语言中仅在运行时才能够检测出来的问题。</li></ul><p>5）安全性</p><ul><li>Java适用于网络/分布式环境。为了达到这个目标，在安全方面投入了很大精力。使用Java可以构建防病毒、防篡改的系统。</li><li>从一开始，Java就设计成能够防范各种攻击，其中包括：<ul><li>运行时堆栈溢出。如蠕虫和病毒常用的攻击手段。</li><li>破坏自己的进程空间之外的内存。</li><li>未经授权读写文件。</li></ul></li></ul><p>6）体系结构中立</p><ul><li>编译器生成一个体系结构中立的目标文件格式，这是一种编译过的代码，只要有Java运行时系统，这些编译后的代码可以在许多处理器上运行。Java编译器通过生成与特定的计算机体系结构无关的字节码指令来实现这一特性。精心设计的字节码不仅可以很容易地在任何机器上解释执行，而且还可以动态地翻译成本地机器代码。</li><li>解释虚拟机指令肯定会比全速运行机器指令慢很多。然而，虚拟机有一个选项，可以将执行最频繁的字节码序列翻译成机器码，这一过程被称为即时编译。</li><li>Java虚拟机还有一些其他的优点。它可以检测指令序列的行为，从而增强其安全性。</li></ul><p>7）可移植性</p><ul><li><p>Java规范中没有“依赖具体实现”的地方。基本数据类型的大小以及有关运算都做了明确的说明。</p><ul><li>Java中的int永远为32位的整数，而在C/C++中，int可能是16位整数、32位整数，也可能是编译器提供商指定的其他大小。</li><li>二进制数据以固定的格式进行存储和传输，消除了字节顺序的困扰。</li><li>字符串是用标准的Unicode格式存储的。</li></ul></li><li><p>作为系统组成部分的类库，定义了可移植的接口。</p></li><li><p>除了与用户界面有关的部分外，所有其他Java库都能很好地支持平台独立性。</p><ul><li>可以处理文件、正则表达式、XML、日期和时间、数据库、网络连接、线程等，而不用操心底层操作系统。不仅程序是可移植的，Java API往往也比原生API质量更高。</li></ul></li></ul><p>8）解释型</p><ul><li>Java解释器可以在任何移植了解释器的机器上执行Java字节码。由于链接是一个增量式且轻量级的过程，所以，开发过程也变得<strong>更加快捷，更加具有探索性</strong>。</li></ul><p>9）高性能</p><ul><li>Java解释器可以在任何移植了解释器的机器上执行Java字节码。由于链接是一个增量式且轻量级的过程，所以，开发过程也变得更加快捷，更加具有探索性。</li><li>即时编译器可以监控经常执行哪些代码并优化这些代码以提高速度。更为复杂的优化是消除函数调用（即“内联”）。即时编译器知道哪些类已经加载。基于当前加载的类集，如果特定的函数不会被覆盖，就可以使用内联。必要时，还可以撤销优化。</li></ul><p>10）多线程</p><ul><li>多线程可以带来更好的交互响应和实时行为。</li><li>Java是第一个支持并发程序设计的主流语言。</li></ul><p>11）动态性</p><ul><li>它能够适应不断发展的环境。库中可以自由地添加新方法和实例变量，而对客户端却没有任何影响。在Java中找出运行时类型信息十分简单。</li></ul><h1 id="Java-applet与Internet"><a href="#Java-applet与Internet" class="headerlink" title="Java applet与Internet"></a>Java applet与Internet</h1><ul><li>用户从Internet下载Java字节码，并在自己的机器上运行。在网页中运行的Java程序称为applet。</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>Java</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Java</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>SpringMVC:1、简介</title>
     <link href="/2020/03/15/SpringMVC-1%E3%80%81%E7%AE%80%E4%BB%8B/"/>
     <url>/2020/03/15/SpringMVC-1%E3%80%81%E7%AE%80%E4%BB%8B/</url>
     
-    <content type="html"><![CDATA[<h1 id="SpringMVC"><a href="#SpringMVC" class="headerlink" title="SpringMVC"></a>SpringMVC</h1><p><strong>ssm:mybatis+spring+springmvc</strong> <strong>MVC三层架构</strong></p><p>Spring Web MVC是基于Servlet API构建的原始Web框架，并且从一开始就已包含在Spring框架中。 正式名称“ Spring Web MVC”来自其源模块的名称（spring-webmvc），但通常称为“ Spring MVC”。</p><h1 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h1><ul><li>MVC全名是Model View Controller，是模型(model)－视图(view)－控制器(controller)的缩写，一种软件设计典范。</li><li>用一种业务逻辑、数据、界面显示分离的方法组织代码。</li><li>MVC主要作用是<strong>降低了视图与业务逻辑间的双向偶合</strong>。</li><li>MVC不是一种设计模式，<strong>MVC是一种架构模式</strong>。当然不同的MVC存在差异。</li></ul><p><strong>MVC要实现的目标是将软件用户界面和业务逻辑分离以使代码可扩展性、可复用性、可维护性、灵活性加强。</strong></p><p>View层是界面，Model层是业务逻辑，Controller层用来调度View层和Model层，将用户界面和业务逻辑合理的组织在一起，起粘合剂的效果。所以Controller中的内容能少则少，这样才能提供最大的灵活性。</p><p><strong>Model（模型）：</strong>数据模型，提供要展示的数据，因此包含数据和行为，可以认为是领域模型或JavaBean组件（包含数据和行为），不过现在一般都分离开来：Value Object（数据Dao） 和 服务层（行为Service）。也就是模型提供了模型数据查询和模型数据的状态更新等功能，包括数据和业务。</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="SpringMVC"><a href="#SpringMVC" class="headerlink" title="SpringMVC"></a>SpringMVC</h1><p><strong>ssm:mybatis+spring+springmvc</strong> <strong>MVC三层架构</strong></p><p>Spring Web MVC是基于Servlet API构建的原始Web框架，并且从一开始就已包含在Spring框架中。 正式名称“ Spring Web MVC”来自其源模块的名称（spring-webmvc），但通常称为“ Spring MVC”。</p><h1 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h1><ul><li>MVC全名是Model View Controller，是模型(model)－视图(view)－控制器(controller)的缩写，一种软件设计典范。</li><li>用一种业务逻辑、数据、界面显示分离的方法组织代码。</li><li>MVC主要作用是<strong>降低了视图与业务逻辑间的双向偶合</strong>。</li><li>MVC不是一种设计模式，<strong>MVC是一种架构模式</strong>。当然不同的MVC存在差异。</li></ul><p><strong>MVC要实现的目标是将软件用户界面和业务逻辑分离以使代码可扩展性、可复用性、可维护性、灵活性加强。</strong></p><p>View层是界面，Model层是业务逻辑，Controller层用来调度View层和Model层，将用户界面和业务逻辑合理的组织在一起，起粘合剂的效果。所以Controller中的内容能少则少，这样才能提供最大的灵活性。</p><p><strong>Model（模型）：</strong>数据模型，提供要展示的数据，因此包含数据和行为，可以认为是领域模型或JavaBean组件（包含数据和行为），不过现在一般都分离开来：Value Object（数据Dao） 和 服务层（行为Service）。也就是模型提供了模型数据查询和模型数据的状态更新等功能，包括数据和业务。</p><p><strong>View（视图）：</strong>负责进行模型的展示，一般就是我们见到的用户界面，客户想看到的东西。</p><p><strong>Controller（控制器）：</strong>接收用户请求，委托给模型进行处理（状态改变），处理完毕后把返回的模型数据返回给视图，由视图负责展示。 也就是说控制器做了个调度员的工作。</p><p><strong>最典型的MVC就是JSP + servlet + javabean的模式</strong></p>]]></content>
     
     
     <categories>
