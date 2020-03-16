@@ -4,6 +4,56 @@
   
   
   <entry>
+    <title>JavaWeb:学习笔记</title>
+    <link href="/2020/03/16/JavaWeb-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <url>/2020/03/16/JavaWeb-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    
+    <content type="html"><![CDATA[<h1 id="JavaWeb"><a href="#JavaWeb" class="headerlink" title="JavaWeb"></a>JavaWeb</h1><h2 id="1、基本概念"><a href="#1、基本概念" class="headerlink" title="1、基本概念"></a>1、基本概念</h2><h2 id="2、Web服务器"><a href="#2、Web服务器" class="headerlink" title="2、Web服务器"></a>2、Web服务器</h2><h2 id="3、Tomcat"><a href="#3、Tomcat" class="headerlink" title="3、Tomcat"></a>3、Tomcat</h2><h2 id="4、Http"><a href="#4、Http" class="headerlink" title="4、Http"></a>4、Http</h2><h3 id="4-1、什么是HTTP"><a href="#4-1、什么是HTTP" class="headerlink" title="4.1、什么是HTTP"></a>4.1、什么是HTTP</h3><h3 id="4-2、两个时代"><a href="#4-2、两个时代" class="headerlink" title="4.2、两个时代"></a>4.2、两个时代</h3><h3 id="4-3、Http请求"><a href="#4-3、Http请求" class="headerlink" title="4.3、Http请求"></a>4.3、Http请求</h3>]]></content>
+    
+    
+    <categories>
+      
+      <category>JavaWeb</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>JavaWeb</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Java:2、Java程序设计环境</title>
+    <link href="/2020/03/16/Java-2%E3%80%81Java%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%8E%AF%E5%A2%83/"/>
+    <url>/2020/03/16/Java-2%E3%80%81Java%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%8E%AF%E5%A2%83/</url>
+    
+    <content type="html"><![CDATA[<h1 id="安装Java开发工具包"><a href="#安装Java开发工具包" class="headerlink" title="安装Java开发工具包"></a>安装Java开发工具包</h1><p>Oracle公司为Linux、Mac OS X、Solaris和Windows提供了Java开发工具包（JDK）的最新、最完整的版本。</p><h2 id="1、下载JDK"><a href="#1、下载JDK" class="headerlink" title="1、下载JDK"></a>1、下载JDK</h2><p>要想下载Java开发工具包，可以访问Oracle网站：<a href="http://www.oracle.com/technetwork/java/javase/downloads" target="_blank" rel="noopener">www.oracle.com/technetwork/java/javase/downloads</a><br>，在得到所需的软件之前必须弄清楚大量专业术语。</p><p><a href="https://www.oracle.com/java/technologies/javase-jdk8-downloads.html" target="_blank" rel="noopener">jdk1.8</a></p><table><thead><tr><th>术语名</th><th>缩写</th><th>解释</th></tr></thead><tbody><tr><td>Java Development Kit</td><td>JDK</td><td>编写Java程序的程序员使用的软件</td></tr><tr><td>Java Runtime Environment</td><td>JRE</td><td>运行Java程序的用户使用的软件</td></tr><tr><td>Server JRE</td><td>-</td><td>在服务器上运行Java程序的软件</td></tr><tr><td>Standard Edition</td><td>SE</td><td>用于桌面或简单服务器应用的Java平台</td></tr><tr><td>Enterprise Edition</td><td>EE</td><td>用于复杂服务器应用的Java平台</td></tr><tr><td>Micro Edition</td><td>ME</td><td>用于手机和其他小型设备的Java平台</td></tr><tr><td>Java FX</td><td>-</td><td>用于图形化用户界面的一个替代工具包，在Oracle的Java SE发布版本中提供</td></tr><tr><td>OpenJDK</td><td>-</td><td>JavaSE的一个免费开源实现，不包含浏览器集成或JavaFX</td></tr><tr><td>Java 2</td><td>J2</td><td>一个过时的术语，用于描述1998年~ 2006年之间的Java版本</td></tr><tr><td>Software Development Kit</td><td>SDK</td><td>一个过时的术语，用于描述1998年~ 2006年之间的JDK</td></tr><tr><td>Update</td><td>u</td><td>Oracle的术语，表示bug修正版本</td></tr><tr><td>NetBeans</td><td>-</td><td>Oracle 的集成开发环境</td></tr></tbody></table><ul><li>你需要的是JDK（Java SE开发包），而不是JRE。</li><li>Windows或Linux：32位选择x86，64位以x64。</li><li>Linux：选择.tar.gz版本。</li></ul><h2 id="2、设置JDK"><a href="#2、设置JDK" class="headerlink" title="2、设置JDK"></a>2、设置JDK</h2><ul><li><p>Windows上：</p><ul><li>启动安装程序。会询问你要在哪里安装JDK。最好不要接受路径名中包含空格的默认位置，如c：\Program Files\Java\jdk1.8.0_version。取出路径名中的Program Files部分就可以了。</li><li>在Windows或Linux上安装JDK时，还需要另外完成一个步骤：将jdk/bin目录增加到执行路径中——执行路径是操作系统查找可执行文件时所遍历的目录列表。</li><li>在Windows上，设置环境变量path，将jdkbin目录添加进去</li><li>测试：控制台：java -version</li></ul></li><li><p>Liunx:</p><ul><li><p>在Linux上，只需要把.tar.gz文件解压缩到你选择的某个位置，如你的主目录，或者/opt。</p></li><li><p>在Windows或Linux上安装JDK时，还需要另外完成一个步骤：将jdk/bin目录增加到执行路径中——执行路径是操作系统查找可执行文件时所遍历的目录列表。</p></li><li><p>在Linux上，需要在<code>~/.bashrc</code> 或 <code>~/.bash_profile</code> 文件的最后增加这样一行：</p><pre><code class="shell">export PATH=/opt/jdk1.8.0_31/bin:$PATH</code></pre></li><li><p>测试：控制台：java -version</p></li></ul></li></ul><h2 id="3、安装库源文件和文档"><a href="#3、安装库源文件和文档" class="headerlink" title="3、安装库源文件和文档"></a>3、安装库源文件和文档</h2><ul><li>库源文件在JDK中以一个压缩文件src.zip的形式发布，必须将其解压缩后才能够访问源代码。</li></ul><blockquote><p>src.zip文件中包含了所有公共类库的源代码。要想获得更多的源代码（例如：编译器、虚拟机、本地方法以及私有辅助类），请访问网站：<a href="http://jdk8.java.net。" target="_blank" rel="noopener">http://jdk8.java.net。</a></p></blockquote><ul><li><p>文档包含在一个压缩文件中，它是一个独立于JDK的压缩文件。可以直接从网站<a href="http://www.oracle.com/technetwork/java/javase/downloads" target="_blank" rel="noopener">http://www.oracle.com/technetwork/java/javase/downloads</a></p><p>  下载这个文档。</p></li></ul><h1 id="使用命令行工具"><a href="#使用命令行工具" class="headerlink" title="使用命令行工具"></a>使用命令行工具</h1><h2 id="1、从命令行编译并运行Java程序。"><a href="#1、从命令行编译并运行Java程序。" class="headerlink" title="1、从命令行编译并运行Java程序。"></a>1、从命令行编译并运行Java程序。</h2><ol><li>编写Java文件</li></ol><pre><code class="java">public class Welcome{   public static void main(String[] args)   {      String greeting = &quot;Welcome to Core Java!&quot;;      System.out.println(greeting);      for (int i = 0; i &lt; greeting.length(); i++)         System.out.print(&quot;=&quot;);      System.out.println();   }}</code></pre><ol start="2"><li>编译</li></ol><p>javac：Java编译器</p><pre><code class="shell">javac Welcome.java</code></pre><p>会生成一个.class文件</p><ol start="3"><li>Java虚拟机执行二进制码</li></ol><pre><code class="shell">java Welcome</code></pre><ul><li><p>javac程序是一个Java编译器。它将文件Welcome.java编译成Welcome.class。</p></li><li><p>java程序启动Java虚拟机。虚拟机执行编译器放在class文件中的字节码。</p></li></ul><h2 id="2、注意点"><a href="#2、注意点" class="headerlink" title="2、注意点"></a>2、注意点</h2><ul><li>如果手工输入源程序，一定要注意大小写。尤其是类名为Welcome，而不是welcome或WELCOME。</li><li>编译器需要一个文件名（Welcome.java），而运行程序时，只需要指定类名（Welcome），不要带扩展名.java或.class。</li></ul><h1 id="使用集成开发环境"><a href="#使用集成开发环境" class="headerlink" title="使用集成开发环境"></a>使用集成开发环境</h1><p><strong>Eclipse、NetBeans和IntelliJIDEA程序。</strong></p><h1 id="运行图形化应用程序"><a href="#运行图形化应用程序" class="headerlink" title="运行图形化应用程序"></a>运行图形化应用程序</h1><p>同上javac，java</p><h1 id="构建并运行applet"><a href="#构建并运行applet" class="headerlink" title="构建并运行applet"></a>构建并运行applet</h1>]]></content>
+    
+    
+    <categories>
+      
+      <category>Java</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Java</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Java:1、Java概述</title>
     <link href="/2020/03/15/Java-1%E3%80%81Java%E6%A6%82%E8%BF%B0/"/>
     <url>/2020/03/15/Java-1%E3%80%81Java%E6%A6%82%E8%BF%B0/</url>
