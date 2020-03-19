@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>SpringMVC:5、结果跳转方式</title>
+    <link href="/2020/03/19/SpringMVC-5%E3%80%81%E7%BB%93%E6%9E%9C%E8%B7%B3%E8%BD%AC%E6%96%B9%E5%BC%8F/"/>
+    <url>/2020/03/19/SpringMVC-5%E3%80%81%E7%BB%93%E6%9E%9C%E8%B7%B3%E8%BD%AC%E6%96%B9%E5%BC%8F/</url>
+    
+    <content type="html"><![CDATA[<h1 id="1、ModelAndView"><a href="#1、ModelAndView" class="headerlink" title="1、ModelAndView"></a>1、ModelAndView</h1><p>设置ModelAndView对象 , 根据view的名称 , 和视图解析器跳到指定的页面 .</p><p>页面 : {视图解析器前缀} + viewName +{视图解析器后缀}</p><pre><code class="xml"> &lt;bean id=&quot;internalResourceViewResolver&quot; class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;&gt;        &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot;/&gt;        &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot;/&gt;    &lt;/bean&gt;</code></pre><p>Controller类：</p><pre><code class="java">package com.hecn.controller;import org.springframework.web.servlet.ModelAndView;import org.springframework.web.servlet.mvc.Controller;import javax.servlet.http.HttpServletRequest;import javax.servlet.http.HttpServletResponse;/** * @author hecn * @site hecn.gitee.io * @discription */public class ControllerTest1 implements Controller {    public ModelAndView handleRequest(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {        //返回一个模型视图对象        ModelAndView mv = new ModelAndView();        mv.addObject(&quot;msg&quot;, &quot;Test1Controller&quot;);        mv.setViewName(&quot;test&quot;);        return mv;    }}</code></pre><hr><h1 id="2、ServletAPI"><a href="#2、ServletAPI" class="headerlink" title="2、ServletAPI"></a>2、ServletAPI</h1><p>通过设置ServletAPI , <strong>不需要视图解析器</strong> .</p><ol><li>通过HttpServletResponse进行输出</li><li>通过HttpServletResponse实现重定向</li><li>通过HttpServletResponse实现转发</li></ol><pre><code class="java">@Controllerpublic class ResultGo {    @RequestMapping(&quot;/result/t1&quot;)    public void test1(HttpServletRequest req, HttpServletResponse rsp) throws IOException {        rsp.getWriter().println(&quot;Hello,Spring BY servlet API&quot;);    }    @RequestMapping(&quot;/result/t2&quot;)    public void test2(HttpServletRequest req, HttpServletResponse rsp) throws IOException {        rsp.sendRedirect(&quot;/index.jsp&quot;);    }    @RequestMapping(&quot;/result/t3&quot;)    public void test3(HttpServletRequest req, HttpServletResponse rsp) throws Exception {        //转发        req.setAttribute(&quot;msg&quot;,&quot;/result/t3&quot;);        req.getRequestDispatcher(&quot;/WEB-INF/jsp/test.jsp&quot;).forward(req,rsp);    }}</code></pre><h1 id="3、SpringMVC"><a href="#3、SpringMVC" class="headerlink" title="3、SpringMVC"></a>3、SpringMVC</h1><h2 id="通过SpringMVC来实现转发和重定向-无需视图解析器；"><a href="#通过SpringMVC来实现转发和重定向-无需视图解析器；" class="headerlink" title="通过SpringMVC来实现转发和重定向 - 无需视图解析器；"></a>通过SpringMVC来实现转发和重定向 - 无需视图解析器；</h2><pre><code class="java">package com.hecn.controller;import org.springframework.stereotype.Controller;import org.springframework.web.bind.annotation.RequestMapping;import javax.servlet.http.HttpServletRequest;import javax.servlet.http.HttpServletResponse;import java.io.IOException;/** * @author hecn * @site hecn.gitee.io * @discription */@Controllerpublic class ResultGoTwo {    @RequestMapping(&quot;/rsm/t1&quot;)    public String test1() {        //转发        return &quot;/WEB-INF/jsp/admin.jsp&quot;;    }    @RequestMapping(&quot;/rsm/t2&quot;)    public String test2(){        //转发二        return &quot;forward:/WEB-INF/jsp/admin.jsp&quot;;    }    @RequestMapping(&quot;/rsm/t3&quot;)    public String test3(){        //重定向        return &quot;redirect:/index.jsp&quot;;    }}</code></pre><h2 id="通过SpringMVC来实现转发和重定向-有视图解析器；"><a href="#通过SpringMVC来实现转发和重定向-有视图解析器；" class="headerlink" title="通过SpringMVC来实现转发和重定向 - 有视图解析器；"></a>通过SpringMVC来实现转发和重定向 - 有视图解析器；</h2><p>重定向 , 不需要视图解析器 , 本质就是重新请求一个新地方嘛 , 所以注意路径问题.</p><p>可以重定向到另外一个请求实现 .</p><pre><code class="java"></code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>SpringMVC</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>SpringMVC</tag>
+      
+      <tag>MVC</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>SpringMVC:4、RESTFUL</title>
     <link href="/2020/03/19/SpringMVC-4%E3%80%81RESTFUL/"/>
     <url>/2020/03/19/SpringMVC-4%E3%80%81RESTFUL/</url>
