@@ -8,9 +8,23 @@
     <link href="/2020/03/19/SpringMVC-3%E3%80%81Controller/"/>
     <url>/2020/03/19/SpringMVC-3%E3%80%81Controller/</url>
     
-    <content type="html"><![CDATA[]]></content>
+    <content type="html"><![CDATA[<h1 id="控制器Controller"><a href="#控制器Controller" class="headerlink" title="控制器Controller"></a>控制器Controller</h1><ul><li>控制器复杂提供访问应用程序的行为，通常通过<strong>接口定义</strong>或<strong>注解定义</strong>两种方法实现。</li><li>控制器负责解析用户的请求并将其转换为一个模型。</li><li>在Spring MVC中一个控制器类可以包含多个方法</li><li>在Spring MVC中，对于Controller的配置方式有很多种</li></ul><hr><h1 id="实现Controller接口"><a href="#实现Controller接口" class="headerlink" title="实现Controller接口"></a>实现Controller接口</h1><p>Controller是一个接口，在org.springframework.web.servlet.mvc包下，接口中只有一个方法；</p><h1 id="注解实现-Controller"><a href="#注解实现-Controller" class="headerlink" title="注解实现@Controller"></a>注解实现@Controller</h1><ul><li>@Controller注解类型用于声明Spring类的实例是一个控制器；</li><li>Spring可以使用扫描机制来找到应用程序中所有基于注解的控制器类，为了保证Spring能找到你的控制器，需要在配置文件中声明组件扫描。</li></ul><pre><code class="xml">&lt;!--    注解扫描--&gt;    &lt;context:component-scan base-package=&quot;com.hecn.controller&quot;/&gt;</code></pre><ul><li>增加一个ControllerTest2类，使用注解实现:</li></ul><pre><code class="xml">package com.hecn.controller;import com.sun.org.apache.xpath.internal.operations.Mod;import org.springframework.stereotype.Controller;import org.springframework.ui.Model;import org.springframework.web.bind.annotation.RequestMapping;/** * @author 陈朋康 * @site hecn.gitee.io * @discription */@Controllerpublic class ControllerTest2 {    @RequestMapping(&quot;/test2&quot;)    public String index(Model model){        model.addAttribute(&quot;msg&quot;,&quot;Controller02&quot;);        //        return &quot;test&quot;;    }}</code></pre><ul><li>运行tomcat测试</li></ul><p>注解方式是平时使用的最多的方式！</p>]]></content>
     
     
+    <categories>
+      
+      <category>SpringMVC</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>SpringMVC</tag>
+      
+      <tag>MVC</tag>
+      
+    </tags>
     
   </entry>
   
