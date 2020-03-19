@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="hecn">
+  <meta name="keywords" content="">
+  <title>SpringMVC:2、创建一个简单SpringMVC项目 - hecn的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link defer rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>hecn的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">归档</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">分类</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">标签</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">关于</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  星期四, 三月 19日 2020, 4:51 下午
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    1.7k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      8 分钟
+                  </span>
+                
+
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5 z-depth-3" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <div class="markdown-body">
+              <h1 id="配置版"><a href="#配置版" class="headerlink" title="配置版"></a>配置版</h1><ol>
+<li>新建一个Moudle ， 添加web的支持！</li>
+<li>确定导入了SpringMVC 的依赖！</li>
+<li>配置web.xml ， <strong>注册DispatcherServlet</strong></li>
+</ol>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;web-app xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;
+         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd&quot;
+         version=&quot;4.0&quot;&gt;
+
+    &lt;!--1.注册DispatcherServlet--&gt;
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
+        &lt;!--关联一个springmvc的配置文件:【servlet-name】-servlet.xml--&gt;
+        &lt;init-param&gt;
+            &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+            &lt;param-value&gt;classpath:springmvc-servlet.xml&lt;/param-value&gt;
+        &lt;/init-param&gt;
+        &lt;!--启动级别-1--&gt;
+        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+    &lt;/servlet&gt;
+    &lt;!--/ 匹配所有的请求；（不包括.jsp）--&gt;
+    &lt;!--/* 匹配所有的请求；（包括.jsp）--&gt;
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+
+
+&lt;/web-app&gt;</code></pre>
+<ol start="4">
+<li>编写SpringMVC 的 配置文件！名称：springmvc-servlet.xml : [servletname]-servlet.xml说明，这里的名称要求是按照官方来的:</li>
+</ol>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;
+&lt;/beans&gt;</code></pre>
+<ol start="5">
+<li>添加 处理映射器</li>
+</ol>
+<pre><code class="xml">    &lt;bean class=&quot;org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping&quot;/&gt;</code></pre>
+<ol start="6">
+<li>添加 处理器适配器</li>
+</ol>
+<pre><code class="xml">    &lt;bean class=&quot;org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter&quot;/&gt;</code></pre>
+<ol start="7">
+<li>添加 视图解析器</li>
+</ol>
+<pre><code class="xml">&lt;!--视图解析器:DispatcherServlet给他的ModelAndView--&gt;
+    &lt;bean class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot; id=&quot;InternalResourceViewResolver&quot;&gt;
+        &lt;!--前缀--&gt;
+        &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot;/&gt;
+        &lt;!--后缀--&gt;
+        &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot;/&gt;
+    &lt;/bean&gt;</code></pre>
+<ol start="8">
+<li>编写我们要操作业务Controller ，要么实现Controller接口，要么增加注解；需要返回一个ModelAndView，装数据，封视图；</li>
+</ol>
+<pre><code class="java">package com.hecn.controller;
+
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.Controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * @author 陈朋康
+ * @site hecn.gitee.io
+ * @discription 注意：这里我们先导入Controller接口
+ */
+public class HelloController implements Controller {
+
+    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        //ModelAndView 模型和视图
+        ModelAndView mv = new ModelAndView();
+
+        //封装对象，放在ModelAndView中。Model
+        mv.addObject(&quot;msg&quot;, &quot;HelloSpringMVC!&quot;);
+        //封装要跳转的视图，放在ModelAndView中
+        mv.setViewName(&quot;hello&quot;);
+        //: /WEB-INF/jsp/hello.jsp
+        return mv;
+    }
+}</code></pre>
+<ol start="9">
+<li>将自己的类交给SpringIOC容器，注册bean</li>
+</ol>
+<pre><code class="java"> &lt;!--Handler--&gt;
+    &lt;bean id=&quot;/hello&quot; class=&quot;com.hecn.controller.HelloController&quot;/&gt;</code></pre>
+<ol start="10">
+<li>写要跳转的jsp页面，显示ModelandView存放的数据，以及我们的正常页面；</li>
+</ol>
+<pre><code class="jsp">&lt;%--
+  Created by IntelliJ IDEA.
+  User: 24497
+  Date: 2020/3/19 0019
+  Time: 17:16
+  To change this template use File | Settings | File Templates.
+--%&gt;
+
+&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Kuangshen&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+${msg}
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<ol start="11">
+<li>配置Tomcat 启动测试！</li>
+</ol>
+<hr>
+<p><strong>问题解决：</strong></p>
+<p><strong>可能遇到的问题：访问出现404，排查步骤：</strong></p>
+<ol>
+<li>查看控制台输出，看一下是不是缺少了什么jar包。</li>
+<li>如果jar包存在，显示无法输出，就在IDEA的项目发布中，添加lib依赖！</li>
+<li>重启Tomcat 即可解决！</li>
+</ol>
+<p><strong>小结：</strong></p>
+<p>实际开发不会这么写，用注解更简单！</p>
+<hr>
+<h1 id="注解版"><a href="#注解版" class="headerlink" title="注解版"></a>注解版</h1><ol>
+<li>新建一个Moudle , 添加web支持！</li>
+<li>由于Maven可能存在资源过滤的问题，我们将配置资源过滤问题：</li>
+</ol>
+<pre><code class="xml">&lt;build&gt;
+    &lt;resources&gt;
+        &lt;resource&gt;
+            &lt;directory&gt;src/main/java&lt;/directory&gt;
+            &lt;includes&gt;
+                &lt;include&gt;**/*.properties&lt;/include&gt;
+                &lt;include&gt;**/*.xml&lt;/include&gt;
+            &lt;/includes&gt;
+            &lt;filtering&gt;false&lt;/filtering&gt;
+        &lt;/resource&gt;
+        &lt;resource&gt;
+            &lt;directory&gt;src/main/resources&lt;/directory&gt;
+            &lt;includes&gt;
+                &lt;include&gt;**/*.properties&lt;/include&gt;
+                &lt;include&gt;**/*.xml&lt;/include&gt;
+            &lt;/includes&gt;
+            &lt;filtering&gt;false&lt;/filtering&gt;
+        &lt;/resource&gt;
+    &lt;/resources&gt;
+&lt;/build&gt;</code></pre>
+<ol start="3">
+<li>pom.xml导入依赖：</li>
+</ol>
+<p>主要有Spring框架核心库、Spring MVC、servlet , JSTL等。</p>
+<ol start="4">
+<li>配置web.xml</li>
+</ol>
+<p>注意点：</p>
+<ul>
+<li>注意web.xml版本问题，要最新版！</li>
+<li>注册DispatcherServlet</li>
+<li>关联SpringMVC的配置文件</li>
+<li>启动级别为1</li>
+<li>映射路径为 / 【不要用/*，会404】</li>
+</ul>
+<ol start="5">
+<li>添加springmvc配置文件：springmvc-servlet.xml</li>
+</ol>
+<ul>
+<li>让IOC的注解生效</li>
+<li>静态资源过滤 ：HTML . JS . CSS . 图片 ， 视频 …..</li>
+<li>MVC的注解驱动</li>
+<li>配置视图解析器</li>
+</ul>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+       xmlns:mvc=&quot;http://www.springframework.org/schema/mvc&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       https://www.springframework.org/schema/mvc/spring-mvc.xsd&quot;&gt;
+
+    &lt;!-- 自动扫描包，让指定包下的注解生效,由IOC容器统一管理 --&gt;
+    &lt;context:component-scan base-package=&quot;com.hecn.controller&quot;/&gt;
+    &lt;!-- 让Spring MVC不处理静态资源 --&gt;
+    &lt;mvc:default-servlet-handler/&gt;
+    &lt;!--
+   支持mvc注解驱动
+       在spring中一般采用@RequestMapping注解来完成映射关系
+       要想使@RequestMapping注解生效
+       必须向上下文中注册DefaultAnnotationHandlerMapping
+       和一个AnnotationMethodHandlerAdapter实例
+       这两个实例分别在类级别和方法级别处理。
+       而annotation-driven配置帮助我们自动完成上述两个实例的注入。
+    --&gt;
+    &lt;mvc:annotation-driven/&gt;
+    &lt;!--    视图解析器--&gt;
+    &lt;bean id=&quot;internalResourceViewResolver&quot; class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;&gt;
+        &lt;property name=&quot;prefix&quot; value=&quot;WEB-INF/jsp/&quot;/&gt;
+        &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot;/&gt;
+    &lt;/bean&gt;
+&lt;/beans&gt;</code></pre>
+<p>在视图解析器中我们把所有的视图都存放在/WEB-INF/目录下，这样可以保证视图安全，因为这个目录下的文件，客户端不能直接访问。</p>
+<ol start="6">
+<li>创建Controller.java</li>
+</ol>
+<pre><code class="java">package com.hecn.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+/**
+ * @author 陈朋康
+ * @site hecn.gitee.io
+ * @discription
+ */
+@Controller
+//@RequestMapping(&quot;/HelloController&quot;)
+public class HelloController {
+    @RequestMapping(&quot;/hello&quot;)
+    public String hello(Model model) {
+        //向模型中添加属性msg与值，可以在JSP页面中取出并渲染
+        model.addAttribute(&quot;msg&quot;, &quot;Hello,SpringMVC&quot;);
+        //web-inf/jsp/hello.jsp
+        return &quot;hello&quot;;
+    }
+}</code></pre>
+<ol start="7">
+<li>创建试图层</li>
+</ol>
+<pre><code class="jsp">&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;SpringMVC&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    ${msg}
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<ol start="8">
+<li>配置tomcat运行</li>
+</ol>
+<hr>
+<p><strong>小结：</strong></p>
+<p>实现步骤其实非常的简单：</p>
+<ol>
+<li>新建一个web项目</li>
+<li>导入相关jar包</li>
+<li>编写web.xml , 注册DispatcherServlet</li>
+<li>编写springmvc配置文件</li>
+<li>接下来就是去创建对应的控制类 , controller</li>
+<li>最后完善前端视图和controller之间的对应</li>
+<li>测试运行调试.</li>
+</ol>
+<hr>
+<p>使用springMVC必须配置的三大件：</p>
+<p><strong>处理器映射器、处理器适配器、视图解析器</strong></p>
+<p>通常，我们只需要<strong>手动配置视图解析器</strong>，而<strong>处理器映射器</strong>和<strong>处理器适配器</strong>只需要开启<strong>注解驱动</strong>即可，而省去了大段的xml配置。</p>
+
+            </div>
+            <hr>
+            <div>
+              <p>
+                
+                  <span>
+                <i class="iconfont icon-inbox"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/SpringMVC/">SpringMVC</a>
+                      &nbsp;
+                    
+                  </span>&nbsp;&nbsp;
+                
+                
+                  <span>
+                <i class="iconfont icon-tag"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/SpringMVC/">SpringMVC</a>
+                    
+                      <a class="hover-with-bg" href="/tags/MVC/">MVC</a>
+                    
+                  </span>
+                
+              </p>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc-start"></div>
+<div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+    <!-- APlayer 音乐播放器 -->
+    <div id="aplayer"></div>
+    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
+<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+<script type="text/javascript">
+  var oldLoad = window.onload;
+  window.onload = function () {
+    new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      autoplay: 'false' === 'true',
+      loop: 'all',
+      order: 'random',
+      theme: '#b7daff',
+      preload: 'none',
+      audio: [{"name":"说好不哭","artist":"周杰伦","url":"/songs/说好不哭（with 五月天阿信） - 周杰伦.flac","cover":"https://y.gtimg.cn/music/photo_new/T002R300x300M000002gBTVk4JEE2T_2.jpg?max_age=2592000","lrc":"/songs/说好不哭（with 五月天阿信） - 周杰伦.lrc"},{"name":"Like You","artist":"G.E.M.","url":"/songs/喜欢你-G.E.M.邓紫棋.flac","cover":"https://y.gtimg.cn/music/photo_new/T002R300x300M000003voidC3p6EQe_1.jpg?max_age=2592000","lrc":"/songs/喜欢你-G.E.M.邓紫棋.lrc"}]
+    });
+    oldLoad && oldLoad();
+  }
+</script>
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var post = $('#post');
+      var toc = $('#toc');
+      var tocLimMax = post.offset().top + post.height() - navHeight;
+
+      $(window).scroll(function () {
+        var tocLimMin = $('#toc-start').offset().top - navHeight;
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': navHeight,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+      var offset = $('#board-ctn').css('margin-right')
+      $('#toc-ctn').css({
+        'right': offset
+      })
+    });
+  </script>
+
+
+
+
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "SpringMVC:2、创建一个简单SpringMVC项目&nbsp;",
+      ],
+      cursorChar: "❤",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
