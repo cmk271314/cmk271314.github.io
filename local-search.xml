@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>SpringMVC:4、RESTFUL</title>
+    <link href="/2020/03/19/SpringMVC-4%E3%80%81RESTFUL/"/>
+    <url>/2020/03/19/SpringMVC-4%E3%80%81RESTFUL/</url>
+    
+    <content type="html"><![CDATA[<h1 id="RESTful"><a href="#RESTful" class="headerlink" title="RESTful"></a>RESTful</h1><p>RESTFUL（Representational State Transfer）是一种网络应用程序的设计风格和开发方式，基于<a href="https://baike.baidu.com/item/HTTP/243074" target="_blank" rel="noopener">HTTP</a>，可以使用<a href="https://baike.baidu.com/item/XML/86251" target="_blank" rel="noopener">XML</a>格式定义或<a href="https://baike.baidu.com/item/JSON/2462549" target="_blank" rel="noopener">JSON</a>格式定义。RESTFUL适用于移动互联网厂商作为业务使能接口的场景，实现第三方<a href="https://baike.baidu.com/item/OTT/9960940" target="_blank" rel="noopener">OTT</a>调用移动网络资源的功能，动作类型为新增、变更、删除所调用资源。</p><p>Restful就是一个资源定位及资源操作的风格。不是标准也不是协议，只是一种风格。基于这个风格设计的软件可以更简洁，更有层次，更易于实现缓存等机制。</p><hr><h1 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h1><ul><li><p>资源：互联网所有的事物都可以被抽象为资源</p></li><li><p>资源操作：使用POST、DELETE、PUT、GET，使用不同方法对资源进行操作。</p></li><li><p>分别对应 添加、 删除、修改、查询。</p></li></ul><hr><h1 id="传统方式操作资源：通过不同的参数来实现不同的效果！方法单一，post-和-get"><a href="#传统方式操作资源：通过不同的参数来实现不同的效果！方法单一，post-和-get" class="headerlink" title="传统方式操作资源：通过不同的参数来实现不同的效果！方法单一，post 和 get"></a>传统方式操作资源：通过不同的参数来实现不同的效果！方法单一，post 和 get</h1><ul><li><a href="http://127.0.0.1/item/queryItem.action?id=1" target="_blank" rel="noopener">http://127.0.0.1/item/queryItem.action?id=1</a> 查询,GET</li><li><a href="http://127.0.0.1/item/saveItem.action" target="_blank" rel="noopener">http://127.0.0.1/item/saveItem.action</a> 新增,POST</li><li><a href="http://127.0.0.1/item/updateItem.action" target="_blank" rel="noopener">http://127.0.0.1/item/updateItem.action</a> 更新,POST</li><li><a href="http://127.0.0.1/item/deleteItem.action?id=1" target="_blank" rel="noopener">http://127.0.0.1/item/deleteItem.action?id=1</a> 删除,GET或POST</li></ul><hr><h1 id="使用RESTful操作资源-：-可以通过不同的请求方式来实现不同的效果！如下：请求地址一样，但是功能可以不同！"><a href="#使用RESTful操作资源-：-可以通过不同的请求方式来实现不同的效果！如下：请求地址一样，但是功能可以不同！" class="headerlink" title="使用RESTful操作资源 ： 可以通过不同的请求方式来实现不同的效果！如下：请求地址一样，但是功能可以不同！"></a>使用RESTful操作资源 ： 可以通过不同的请求方式来实现不同的效果！如下：请求地址一样，但是功能可以不同！</h1><ul><li><a href="http://127.0.0.1/item/1" target="_blank" rel="noopener">http://127.0.0.1/item/1</a> 查询,GET</li><li><a href="http://127.0.0.1/item" target="_blank" rel="noopener">http://127.0.0.1/item</a> 新增,POST</li><li><a href="http://127.0.0.1/item" target="_blank" rel="noopener">http://127.0.0.1/item</a> 更新,PUT</li><li><a href="http://127.0.0.1/item/1" target="_blank" rel="noopener">http://127.0.0.1/item/1</a> 删除,DELETE</li></ul><h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><ol><li>新建一个类 RestFulController</li></ol><pre><code class="java">package com.hecn.controller;import org.springframework.stereotype.Controller;import org.springframework.ui.Model;import org.springframework.web.bind.annotation.PathVariable;import org.springframework.web.bind.annotation.RequestMapping;/** * @author hecn * @site hecn.gitee.io * @discription */@Controllerpublic class RestFulController {    @RequestMapping(&quot;/commit/{p1}/{p2}&quot;)    public String index(@PathVariable int p1, @PathVariable int p2, Model model){        int result=p1+p2;        model.addAttribute(&quot;msg&quot;,&quot;结果&quot;+result);        return &quot;test&quot;;    }}</code></pre><ol start="2"><li><p>在Spring MVC中可以使用 <strong>@PathVariable</strong> 注解，让方法参数的值对应绑定到一个URI模板变量上。</p></li><li><p>测试<code>localhost:8080/commit/1/2</code>(得到的结果为3)</p></li><li><p>修改对应参数类型</p></li></ol><pre><code class="java">//映射访问路径@RequestMapping(&quot;/commit/{p1}/{p2}&quot;)public String index(@PathVariable int p1, @PathVariable String p2, Model model){    String result = p1+p2;    //Spring MVC会自动实例化一个Model对象用于向视图中传值    model.addAttribute(&quot;msg&quot;, &quot;结果：&quot;+result);    //返回视图位置    return &quot;test&quot;;}</code></pre><p>测试<code>localhost:8080/commit/1/a</code>(得到的结果为1a)</p><p>使用路径变量的好处？</p><ul><li>使路径变得更加简洁；</li><li>获得参数更加方便，框架会自动进行类型转换。</li><li>通过路径变量的类型可以约束访问参数，如果类型不一样，则访问不到对应的请求方法，如这里访问是的路径是/commit/1/a，则路径与方法不匹配，而不会是参数转换失败。</li></ul><hr><h1 id="使用method属性指定请求类型"><a href="#使用method属性指定请求类型" class="headerlink" title="使用method属性指定请求类型"></a>使用method属性指定请求类型</h1><p>用于约束请求的类型，可以收窄请求范围。指定请求谓词的类型如GET, POST, HEAD, OPTIONS, PUT, PATCH, DELETE, TRACE等。</p><p><code>method = {RequestMethod.GET}</code></p><ul><li>增加一个方法</li></ul><pre><code class="java">//映射访问路径,必须是GET请求@RequestMapping(value = &quot;/hello&quot;,method = {RequestMethod.GET})    public String index2( Model model){        model.addAttribute(&quot;msg&quot;,&quot;hello&quot;);        return &quot;test&quot;;    }</code></pre><h1 id="小结"><a href="#小结" class="headerlink" title="小结:"></a>小结:</h1><ol><li><p>Spring MVC 的<code>@RequestMapping</code>注解能够处理 HTTP 请求的方法, 比如 GET, PUT, POST, DELETE 以及 PATCH。</p></li><li><p><strong>所有的地址栏请求默认都会是 HTTP GET 类型的。</strong></p></li><li><p>方法级别的注解变体有如下几个： 组合注解</p></li></ol><pre><code class="java">@GetMapping@PostMapping@PutMapping@DeleteMapping@PatchMapping</code></pre><ol start="4"><li><p>@GetMapping 是一个组合注解</p><p> 它所扮演的是 @RequestMapping(method =RequestMethod.GET) 的一个快捷方式。</p></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>SpringMVC</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>SpringMVC</tag>
+      
+      <tag>MVC</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>SpringMVC:3、Controller</title>
     <link href="/2020/03/19/SpringMVC-3%E3%80%81Controller/"/>
     <url>/2020/03/19/SpringMVC-3%E3%80%81Controller/</url>

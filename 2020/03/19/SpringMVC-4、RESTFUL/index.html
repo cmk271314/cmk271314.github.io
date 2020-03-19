@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="hecn">
+  <meta name="keywords" content="">
+  <title>SpringMVC:4、RESTFUL - hecn的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link defer rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>hecn的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">归档</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">分类</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">标签</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">关于</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  星期四, 三月 19日 2020, 10:58 晚上
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    879 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      3 分钟
+                  </span>
+                
+
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5 z-depth-3" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <div class="markdown-body">
+              <h1 id="RESTful"><a href="#RESTful" class="headerlink" title="RESTful"></a>RESTful</h1><p>RESTFUL（Representational State Transfer）是一种网络应用程序的设计风格和开发方式，基于<a href="https://baike.baidu.com/item/HTTP/243074" target="_blank" rel="noopener">HTTP</a>，可以使用<a href="https://baike.baidu.com/item/XML/86251" target="_blank" rel="noopener">XML</a>格式定义或<a href="https://baike.baidu.com/item/JSON/2462549" target="_blank" rel="noopener">JSON</a>格式定义。RESTFUL适用于移动互联网厂商作为业务使能接口的场景，实现第三方<a href="https://baike.baidu.com/item/OTT/9960940" target="_blank" rel="noopener">OTT</a>调用移动网络资源的功能，动作类型为新增、变更、删除所调用资源。</p>
+<p>Restful就是一个资源定位及资源操作的风格。不是标准也不是协议，只是一种风格。基于这个风格设计的软件可以更简洁，更有层次，更易于实现缓存等机制。</p>
+<hr>
+<h1 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h1><ul>
+<li><p>资源：互联网所有的事物都可以被抽象为资源</p>
+</li>
+<li><p>资源操作：使用POST、DELETE、PUT、GET，使用不同方法对资源进行操作。</p>
+</li>
+<li><p>分别对应 添加、 删除、修改、查询。</p>
+</li>
+</ul>
+<hr>
+<h1 id="传统方式操作资源：通过不同的参数来实现不同的效果！方法单一，post-和-get"><a href="#传统方式操作资源：通过不同的参数来实现不同的效果！方法单一，post-和-get" class="headerlink" title="传统方式操作资源：通过不同的参数来实现不同的效果！方法单一，post 和 get"></a>传统方式操作资源：通过不同的参数来实现不同的效果！方法单一，post 和 get</h1><ul>
+<li><a href="http://127.0.0.1/item/queryItem.action?id=1" target="_blank" rel="noopener">http://127.0.0.1/item/queryItem.action?id=1</a> 查询,GET</li>
+<li><a href="http://127.0.0.1/item/saveItem.action" target="_blank" rel="noopener">http://127.0.0.1/item/saveItem.action</a> 新增,POST</li>
+<li><a href="http://127.0.0.1/item/updateItem.action" target="_blank" rel="noopener">http://127.0.0.1/item/updateItem.action</a> 更新,POST</li>
+<li><a href="http://127.0.0.1/item/deleteItem.action?id=1" target="_blank" rel="noopener">http://127.0.0.1/item/deleteItem.action?id=1</a> 删除,GET或POST</li>
+</ul>
+<hr>
+<h1 id="使用RESTful操作资源-：-可以通过不同的请求方式来实现不同的效果！如下：请求地址一样，但是功能可以不同！"><a href="#使用RESTful操作资源-：-可以通过不同的请求方式来实现不同的效果！如下：请求地址一样，但是功能可以不同！" class="headerlink" title="使用RESTful操作资源 ： 可以通过不同的请求方式来实现不同的效果！如下：请求地址一样，但是功能可以不同！"></a>使用RESTful操作资源 ： 可以通过不同的请求方式来实现不同的效果！如下：请求地址一样，但是功能可以不同！</h1><ul>
+<li><a href="http://127.0.0.1/item/1" target="_blank" rel="noopener">http://127.0.0.1/item/1</a> 查询,GET</li>
+<li><a href="http://127.0.0.1/item" target="_blank" rel="noopener">http://127.0.0.1/item</a> 新增,POST</li>
+<li><a href="http://127.0.0.1/item" target="_blank" rel="noopener">http://127.0.0.1/item</a> 更新,PUT</li>
+<li><a href="http://127.0.0.1/item/1" target="_blank" rel="noopener">http://127.0.0.1/item/1</a> 删除,DELETE</li>
+</ul>
+<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><ol>
+<li>新建一个类 RestFulController</li>
+</ol>
+<pre><code class="java">package com.hecn.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+/**
+ * @author hecn
+ * @site hecn.gitee.io
+ * @discription
+ */
+@Controller
+public class RestFulController {
+    @RequestMapping(&quot;/commit/{p1}/{p2}&quot;)
+    public String index(@PathVariable int p1, @PathVariable int p2, Model model){
+        int result=p1+p2;
+        model.addAttribute(&quot;msg&quot;,&quot;结果&quot;+result);
+        return &quot;test&quot;;
+    }
+}</code></pre>
+<ol start="2">
+<li><p>在Spring MVC中可以使用 <strong>@PathVariable</strong> 注解，让方法参数的值对应绑定到一个URI模板变量上。</p>
+</li>
+<li><p>测试<code>localhost:8080/commit/1/2</code>(得到的结果为3)</p>
+</li>
+<li><p>修改对应参数类型</p>
+</li>
+</ol>
+<pre><code class="java">//映射访问路径
+@RequestMapping(&quot;/commit/{p1}/{p2}&quot;)
+public String index(@PathVariable int p1, @PathVariable String p2, Model model){
+
+    String result = p1+p2;
+    //Spring MVC会自动实例化一个Model对象用于向视图中传值
+    model.addAttribute(&quot;msg&quot;, &quot;结果：&quot;+result);
+    //返回视图位置
+    return &quot;test&quot;;
+
+}</code></pre>
+<p>测试<code>localhost:8080/commit/1/a</code>(得到的结果为1a)</p>
+<p>使用路径变量的好处？</p>
+<ul>
+<li>使路径变得更加简洁；</li>
+<li>获得参数更加方便，框架会自动进行类型转换。</li>
+<li>通过路径变量的类型可以约束访问参数，如果类型不一样，则访问不到对应的请求方法，如这里访问是的路径是/commit/1/a，则路径与方法不匹配，而不会是参数转换失败。</li>
+</ul>
+<hr>
+<h1 id="使用method属性指定请求类型"><a href="#使用method属性指定请求类型" class="headerlink" title="使用method属性指定请求类型"></a>使用method属性指定请求类型</h1><p>用于约束请求的类型，可以收窄请求范围。指定请求谓词的类型如GET, POST, HEAD, OPTIONS, PUT, PATCH, DELETE, TRACE等。</p>
+<p><code>method = {RequestMethod.GET}</code></p>
+<ul>
+<li>增加一个方法</li>
+</ul>
+<pre><code class="java">//映射访问路径,必须是GET请求
+@RequestMapping(value = &quot;/hello&quot;,method = {RequestMethod.GET})
+    public String index2( Model model){
+        model.addAttribute(&quot;msg&quot;,&quot;hello&quot;);
+        return &quot;test&quot;;
+    }</code></pre>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结:"></a>小结:</h1><ol>
+<li><p>Spring MVC 的<code>@RequestMapping</code>注解能够处理 HTTP 请求的方法, 比如 GET, PUT, POST, DELETE 以及 PATCH。</p>
+</li>
+<li><p><strong>所有的地址栏请求默认都会是 HTTP GET 类型的。</strong></p>
+</li>
+<li><p>方法级别的注解变体有如下几个： 组合注解</p>
+</li>
+</ol>
+<pre><code class="java">@GetMapping
+@PostMapping
+@PutMapping
+@DeleteMapping
+@PatchMapping</code></pre>
+<ol start="4">
+<li><p>@GetMapping 是一个组合注解</p>
+<p> 它所扮演的是 @RequestMapping(method =RequestMethod.GET) 的一个快捷方式。</p>
+</li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <p>
+                
+                  <span>
+                <i class="iconfont icon-inbox"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/SpringMVC/">SpringMVC</a>
+                      &nbsp;
+                    
+                  </span>&nbsp;&nbsp;
+                
+                
+                  <span>
+                <i class="iconfont icon-tag"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/SpringMVC/">SpringMVC</a>
+                    
+                      <a class="hover-with-bg" href="/tags/MVC/">MVC</a>
+                    
+                  </span>
+                
+              </p>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc-start"></div>
+<div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+    <!-- APlayer 音乐播放器 -->
+    <div id="aplayer"></div>
+    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
+<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+<script type="text/javascript">
+  var oldLoad = window.onload;
+  window.onload = function () {
+    new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      autoplay: 'false' === 'true',
+      loop: 'all',
+      order: 'random',
+      theme: '#b7daff',
+      preload: 'none',
+      audio: [{"name":"说好不哭","artist":"周杰伦","url":"/songs/说好不哭（with 五月天阿信） - 周杰伦.flac","cover":"https://y.gtimg.cn/music/photo_new/T002R300x300M000002gBTVk4JEE2T_2.jpg?max_age=2592000","lrc":"/songs/说好不哭（with 五月天阿信） - 周杰伦.lrc"},{"name":"Like You","artist":"G.E.M.","url":"/songs/喜欢你-G.E.M.邓紫棋.flac","cover":"https://y.gtimg.cn/music/photo_new/T002R300x300M000003voidC3p6EQe_1.jpg?max_age=2592000","lrc":"/songs/喜欢你-G.E.M.邓紫棋.lrc"}]
+    });
+    oldLoad && oldLoad();
+  }
+</script>
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var post = $('#post');
+      var toc = $('#toc');
+      var tocLimMax = post.offset().top + post.height() - navHeight;
+
+      $(window).scroll(function () {
+        var tocLimMin = $('#toc-start').offset().top - navHeight;
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': navHeight,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+      var offset = $('#board-ctn').css('margin-right')
+      $('#toc-ctn').css({
+        'right': offset
+      })
+    });
+  </script>
+
+
+
+
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "SpringMVC:4、RESTFUL&nbsp;",
+      ],
+      cursorChar: "❤",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
