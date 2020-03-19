@@ -131,7 +131,7 @@
                   
                   <span class="post-meta">
                     <i class="far fa-chart-bar"></i>
-                    27 字
+                    263 字
                   </span>
                 
 
@@ -167,7 +167,32 @@
           <div class="post-content mx-auto" id="post">
             
             <div class="markdown-body">
-              <h1 id="JavaWeb"><a href="#JavaWeb" class="headerlink" title="JavaWeb"></a>JavaWeb</h1><h2 id="1、基本概念"><a href="#1、基本概念" class="headerlink" title="1、基本概念"></a>1、基本概念</h2><h2 id="2、Web服务器"><a href="#2、Web服务器" class="headerlink" title="2、Web服务器"></a>2、Web服务器</h2><h2 id="3、Tomcat"><a href="#3、Tomcat" class="headerlink" title="3、Tomcat"></a>3、Tomcat</h2><h2 id="4、Http"><a href="#4、Http" class="headerlink" title="4、Http"></a>4、Http</h2><h3 id="4-1、什么是HTTP"><a href="#4-1、什么是HTTP" class="headerlink" title="4.1、什么是HTTP"></a>4.1、什么是HTTP</h3><h3 id="4-2、两个时代"><a href="#4-2、两个时代" class="headerlink" title="4.2、两个时代"></a>4.2、两个时代</h3><h3 id="4-3、Http请求"><a href="#4-3、Http请求" class="headerlink" title="4.3、Http请求"></a>4.3、Http请求</h3>
+              <h1 id="JavaWeb"><a href="#JavaWeb" class="headerlink" title="JavaWeb"></a>JavaWeb</h1><h2 id="1、基本概念"><a href="#1、基本概念" class="headerlink" title="1、基本概念"></a>1、基本概念</h2><h2 id="2、Web服务器"><a href="#2、Web服务器" class="headerlink" title="2、Web服务器"></a>2、Web服务器</h2><h2 id="3、Tomcat"><a href="#3、Tomcat" class="headerlink" title="3、Tomcat"></a>3、Tomcat</h2><h2 id="4、Http"><a href="#4、Http" class="headerlink" title="4、Http"></a>4、Http</h2><h3 id="4-1、什么是HTTP"><a href="#4-1、什么是HTTP" class="headerlink" title="4.1、什么是HTTP"></a>4.1、什么是HTTP</h3><h3 id="4-2、两个时代"><a href="#4-2、两个时代" class="headerlink" title="4.2、两个时代"></a>4.2、两个时代</h3><h3 id="4-3、Http请求"><a href="#4-3、Http请求" class="headerlink" title="4.3、Http请求"></a>4.3、Http请求</h3><pre><code class="java">Request URL: https://www.baidu.com/ 请求地址
+Request Method: GET  请求方法（get/post）
+Status Code: 200 OK  状态码：304
+Remote（远程地址） Address: 14.215.177.38:443</code></pre>
+<pre><code class="java">Accept: text/html
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6 //语言
+Cache-Control: max-age=0
+Connection: keep-alive</code></pre>
+<h2 id="4-4、Http响应"><a href="#4-4、Http响应" class="headerlink" title="4.4、Http响应"></a>4.4、Http响应</h2><pre><code class="java">Cache-Control: private //缓存控制
+Connection: keep-alive     //连接
+Content-Encoding: gzip    //编码
+Content-Type: text/html;charset=utf-8 //类型</code></pre>
+<h3 id="响应体"><a href="#响应体" class="headerlink" title="响应体"></a>响应体</h3><pre><code class="java">Accept: 告诉浏览器，它所支持的数据类型
+Accept-Encoding: 支持哪种编码格式 GBK UTF-8 GB2312 ...
+Accept-Language: 告诉浏览器语言环境
+Cache-Control: 缓存k&#39;zhi
+Connection: 告诉浏览器请求完成是断开还是保持连接
+HOST：主机
+Refresh: 告诉客户端多久刷新一次
+Location：让网页重新定位</code></pre>
+<h3 id="响应状态码"><a href="#响应状态码" class="headerlink" title="响应状态码"></a>响应状态码</h3><p>200：成功</p>
+<p>3**：请求重定向</p>
+<p>4**：找不到资源 404</p>
+<p>5**：服务器代码错误 500 502：网关错误</p>
+<h2 id="5、Maven"><a href="#5、Maven" class="headerlink" title="5、Maven"></a>5、Maven</h2>
             </div>
             <hr>
             <div>
