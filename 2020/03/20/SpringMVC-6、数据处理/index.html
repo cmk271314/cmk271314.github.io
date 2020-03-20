@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="hecn">
   <meta name="keywords" content="">
-  <title>SpringMVC:5、结果跳转方式 - hecn的博客</title>
+  <title>SpringMVC:6、数据处理 - hecn的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
@@ -122,7 +122,7 @@
               
                 <p class="mt-3 post-meta">
                   <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-                  星期四, 三月 19日 2020, 11:47 晚上
+                  星期五, 三月 20日 2020, 8:59 早上
                 </p>
               
 
@@ -131,7 +131,7 @@
                   
                   <span class="post-meta">
                     <i class="far fa-chart-bar"></i>
-                    550 字
+                    1.3k 字
                   </span>
                 
 
@@ -139,7 +139,7 @@
                   
                   <span class="post-meta">
                       <i class="far fa-clock"></i>
-                      2 分钟
+                      6 分钟
                   </span>
                 
 
@@ -167,126 +167,281 @@
           <div class="post-content mx-auto" id="post">
             
             <div class="markdown-body">
-              <h1 id="1、ModelAndView"><a href="#1、ModelAndView" class="headerlink" title="1、ModelAndView"></a>1、ModelAndView</h1><p>设置ModelAndView对象 , 根据view的名称 , 和视图解析器跳到指定的页面 .</p>
-<p>页面 : {视图解析器前缀} + viewName +{视图解析器后缀}</p>
-<pre><code class="xml"> &lt;bean id=&quot;internalResourceViewResolver&quot; class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;&gt;
-        &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot;/&gt;
-        &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot;/&gt;
-    &lt;/bean&gt;</code></pre>
-<p>Controller类：</p>
+              <h1 id="处理提交数据"><a href="#处理提交数据" class="headerlink" title="处理提交数据"></a>处理提交数据</h1><h2 id="1、提交的域名称和处理方法的参数名一致"><a href="#1、提交的域名称和处理方法的参数名一致" class="headerlink" title="1、提交的域名称和处理方法的参数名一致"></a>1、提交的域名称和处理方法的参数名一致</h2><p>提交数据 : <a href="http://localhost:8080/user/t1?name=hecn" target="_blank" rel="noopener">http://localhost:8080/user/t1?name=hecn</a></p>
+<p>处理方法 :</p>
 <pre><code class="java">package com.hecn.controller;
 
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.sun.org.glassfish.gmbal.ParameterNames;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author hecn
  * @site hecn.gitee.io
  * @discription
  */
-public class ControllerTest1 implements Controller {
+@Controller
+@RequestMapping(&quot;/user&quot;)
+public class UserController {
+    /**
+     * @param name
+     * @param model
+     * @return  //localhost:8080/user/t1?name=xxx;
+     */
+    @GetMapping(&quot;/t1&quot;)
+    public String test1( String name, Model model) {
+        //1.接受前端参数
+        System.out.println(&quot;前端参数：&quot; + name);
+        //2.将返回的结果传递给前端
+        model.addAttribute(&quot;msg&quot;, name);
+        //3.视图跳转
+        return &quot;test&quot;;
+    }
+}
+</code></pre>
+<p>后台输出 : hecn</p>
+<hr>
+<h2 id="2-、提交的域名称和处理方法的参数名不一致"><a href="#2-、提交的域名称和处理方法的参数名不一致" class="headerlink" title="2 、提交的域名称和处理方法的参数名不一致"></a>2 、提交的域名称和处理方法的参数名不一致</h2><p>提交数据 : localhost:8080/user/t1?username=hecn</p>
+<p>处理方法 :</p>
+<pre><code class="java">package com.hecn.controller;
+
+import com.sun.org.glassfish.gmbal.ParameterNames;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+/**
+ * @author hecn
+ * @site hecn.gitee.io
+ * @discription
+ */
+@Controller
+@RequestMapping(&quot;/user&quot;)
+public class UserController {
+    /**
+     * @param name
+     * @param model
+     * @return  //localhost:8080/user/t1?name=xxx;
+     */
+    @GetMapping(&quot;/t1&quot;)
+    public String test1(@RequestParam(&quot;username&quot;) String name, Model model) {
+        //1.接受前端参数
+        System.out.println(&quot;前端参数：&quot; + name);
+        //2.将返回的结果传递给前端
+        model.addAttribute(&quot;msg&quot;, name);
+        //3.视图跳转
+        return &quot;test&quot;;
+    }
+}</code></pre>
+<p>后台输出：hecn</p>
+<hr>
+<h2 id="3、提交的是一个对象"><a href="#3、提交的是一个对象" class="headerlink" title="3、提交的是一个对象"></a>3、提交的是一个对象</h2><p>要求提交的表单域和对象的属性名一致 , 参数使用对象即可</p>
+<ol>
+<li>实体类</li>
+</ol>
+<pre><code class="java">package com.hecn.pojo;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * @author hecn
+ * @site hecn.gitee.io
+ * @discription
+ */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class User {
+    private int id;
+    private String name;
+    private int age;
+
+}</code></pre>
+<ol start="2">
+<li><p>提交数据 : localhost:8080/user/t2?name=hecn&amp;id=1&amp;age=15</p>
+</li>
+<li><p>处理方法：</p>
+</li>
+</ol>
+<pre><code class="java"> /**
+     * @param user
+     * @return
+     */
+    @GetMapping(&quot;/t2&quot;)
+    public String test2(User user){
+        System.out.println(user);
+        return &quot;hello&quot;;
+    }</code></pre>
+<p>后台输出 : User { id=1, name=’hecn’, age=15 }</p>
+<p><strong>说明：如果使用对象的话，前端传递的参数名和对象名必须一致，否则就是null。</strong></p>
+<hr>
+<h1 id="数据显示到前端"><a href="#数据显示到前端" class="headerlink" title="数据显示到前端"></a>数据显示到前端</h1><h2 id="第一种-通过ModelAndView"><a href="#第一种-通过ModelAndView" class="headerlink" title="第一种 : 通过ModelAndView"></a>第一种 : 通过ModelAndView</h2><pre><code class="java">public class ControllerTest1 implements Controller {
+
     public ModelAndView handleRequest(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
         //返回一个模型视图对象
         ModelAndView mv = new ModelAndView();
-        mv.addObject(&quot;msg&quot;, &quot;Test1Controller&quot;);
+        mv.addObject(&quot;msg&quot;,&quot;ControllerTest1&quot;);
         mv.setViewName(&quot;test&quot;);
         return mv;
     }
 }</code></pre>
-<hr>
-<h1 id="2、ServletAPI"><a href="#2、ServletAPI" class="headerlink" title="2、ServletAPI"></a>2、ServletAPI</h1><p>通过设置ServletAPI , <strong>不需要视图解析器</strong> .</p>
-<ol>
-<li>通过HttpServletResponse进行输出</li>
-<li>通过HttpServletResponse实现重定向</li>
-<li>通过HttpServletResponse实现转发</li>
-</ol>
-<pre><code class="java">@Controller
-public class ResultGo {
-
-    @RequestMapping(&quot;/result/t1&quot;)
-    public void test1(HttpServletRequest req, HttpServletResponse rsp) throws IOException {
-        rsp.getWriter().println(&quot;Hello,Spring BY servlet API&quot;);
-    }
-
-    @RequestMapping(&quot;/result/t2&quot;)
-    public void test2(HttpServletRequest req, HttpServletResponse rsp) throws IOException {
-        rsp.sendRedirect(&quot;/index.jsp&quot;);
-    }
-
-    @RequestMapping(&quot;/result/t3&quot;)
-    public void test3(HttpServletRequest req, HttpServletResponse rsp) throws Exception {
-        //转发
-        req.setAttribute(&quot;msg&quot;,&quot;/result/t3&quot;);
-        req.getRequestDispatcher(&quot;/WEB-INF/jsp/test.jsp&quot;).forward(req,rsp);
-    }
-
+<h2 id="第二种-通过ModelMap"><a href="#第二种-通过ModelMap" class="headerlink" title="第二种 : 通过ModelMap"></a>第二种 : 通过ModelMap</h2><pre><code class="java">@RequestMapping(&quot;/hello&quot;)
+public String hello(@RequestParam(&quot;username&quot;) String name, ModelMap model){
+    //封装要显示到视图中的数据
+    //相当于req.setAttribute(&quot;name&quot;,name);
+    model.addAttribute(&quot;name&quot;,name);
+    System.out.println(name);
+    return &quot;hello&quot;;
 }</code></pre>
-<h1 id="3、SpringMVC"><a href="#3、SpringMVC" class="headerlink" title="3、SpringMVC"></a>3、SpringMVC</h1><h2 id="通过SpringMVC来实现转发和重定向-无需视图解析器；"><a href="#通过SpringMVC来实现转发和重定向-无需视图解析器；" class="headerlink" title="通过SpringMVC来实现转发和重定向 - 无需视图解析器；"></a>通过SpringMVC来实现转发和重定向 - 无需视图解析器；</h2><pre><code class="java">package com.hecn.controller;
+<h2 id="第三种-通过Model"><a href="#第三种-通过Model" class="headerlink" title="第三种 : 通过Model"></a>第三种 : 通过Model</h2><pre><code class="java">@RequestMapping(&quot;/ct2/hello&quot;)
+public String hello(@RequestParam(&quot;username&quot;) String name, Model model){
+    //封装要显示到视图中的数据
+    //相当于req.setAttribute(&quot;name&quot;,name);
+    model.addAttribute(&quot;msg&quot;,name);
+    System.out.println(name);
+    return &quot;test&quot;;
+}</code></pre>
+<h2 id="对比："><a href="#对比：" class="headerlink" title="对比："></a>对比：</h2><ul>
+<li>Model 只有寥寥几个方法只适合用于储存数据，简化了新手对于Model对象的操作和理解；</li>
+<li>ModelMap 继承了 LinkedMap ，除了实现了自身的一些方法，同样的继承 LinkedMap 的方法和特性； </li>
+<li>ModelAndView 可以在储存数据的同时，可以进行设置返回的逻辑视图，进行控制展示层的跳转。</li>
+</ul>
+<h2 id="乱码问题"><a href="#乱码问题" class="headerlink" title="乱码问题"></a>乱码问题</h2><p>以前乱码问题通过过滤器解决 , 而SpringMVC给我们提供了一个过滤器 , 可以在<strong>web.xml</strong>中配置 .</p>
+<p>修改了xml文件需要重启服务器！</p>
+<pre><code class="xml">&lt;filter&gt;
+    &lt;filter-name&gt;encoding&lt;/filter-name&gt;
+    &lt;filter-class&gt;org.springframework.web.filter.CharacterEncodingFilter&lt;/filter-class&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;encoding&lt;/param-name&gt;
+        &lt;param-value&gt;utf-8&lt;/param-value&gt;
+    &lt;/init-param&gt;
+&lt;/filter&gt;
+&lt;filter-mapping&gt;
+    &lt;filter-name&gt;encoding&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/&lt;/url-pattern&gt;
+&lt;/filter-mapping&gt;</code></pre>
+<p>有些极端情况下.这个过滤器对get的支持不好 .</p>
+<p>修改tomcat配置文件 ： 设置编码！</p>
+<pre><code class="xml">&lt;Connector URIEncoding=&quot;utf-8&quot; port=&quot;8080&quot; protocol=&quot;HTTP/1.1&quot;
+           connectionTimeout=&quot;20000&quot;   
+           redirectPort=&quot;8443&quot; /&gt;</code></pre>
+<p>自定义过滤器:</p>
+<pre><code class="java">package com.kuang.filter;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.Map;
 
 /**
- * @author hecn
- * @site hecn.gitee.io
- * @discription
+ * 解决get和post请求 全部乱码的过滤器
  */
-@Controller
-public class ResultGoTwo {
-    @RequestMapping(&quot;/rsm/t1&quot;)
-    public String test1() {
-        //转发
-        return &quot;/WEB-INF/jsp/admin.jsp&quot;;
+public class GenericEncodingFilter implements Filter {
+
+    @Override
+    public void destroy() {
     }
 
-    @RequestMapping(&quot;/rsm/t2&quot;)
-    public String test2(){
-        //转发二
-        return &quot;forward:/WEB-INF/jsp/admin.jsp&quot;;
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        //处理response的字符编码
+        HttpServletResponse myResponse=(HttpServletResponse) response;
+        myResponse.setContentType(&quot;text/html;charset=UTF-8&quot;);
+
+        // 转型为与协议相关对象
+        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+        // 对request包装增强
+        HttpServletRequest myrequest = new MyRequest(httpServletRequest);
+        chain.doFilter(myrequest, response);
     }
 
-    @RequestMapping(&quot;/rsm/t3&quot;)
-    public String test3(){
-        //重定向
-        return &quot;redirect:/index.jsp&quot;;
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
     }
 
+}
+
+//自定义request对象，HttpServletRequest的包装类
+class MyRequest extends HttpServletRequestWrapper {
+
+    private HttpServletRequest request;
+    //是否编码的标记
+    private boolean hasEncode;
+    //定义一个可以传入HttpServletRequest对象的构造函数，以便对其进行装饰
+    public MyRequest(HttpServletRequest request) {
+        super(request);// super必须写
+        this.request = request;
+    }
+
+    // 对需要增强方法 进行覆盖
+    @Override
+    public Map getParameterMap() {
+        // 先获得请求方式
+        String method = request.getMethod();
+        if (method.equalsIgnoreCase(&quot;post&quot;)) {
+            // post请求
+            try {
+                // 处理post乱码
+                request.setCharacterEncoding(&quot;utf-8&quot;);
+                return request.getParameterMap();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        } else if (method.equalsIgnoreCase(&quot;get&quot;)) {
+            // get请求
+            Map&lt;String, String[]&gt; parameterMap = request.getParameterMap();
+            if (!hasEncode) { // 确保get手动编码逻辑只运行一次
+                for (String parameterName : parameterMap.keySet()) {
+                    String[] values = parameterMap.get(parameterName);
+                    if (values != null) {
+                        for (int i = 0; i &lt; values.length; i++) {
+                            try {
+                                // 处理get乱码
+                                values[i] = new String(values[i]
+                                        .getBytes(&quot;ISO-8859-1&quot;), &quot;utf-8&quot;);
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+                hasEncode = true;
+            }
+            return parameterMap;
+        }
+        return super.getParameterMap();
+    }
+
+    //取一个值
+    @Override
+    public String getParameter(String name) {
+        Map&lt;String, String[]&gt; parameterMap = getParameterMap();
+        String[] values = parameterMap.get(name);
+        if (values == null) {
+            return null;
+        }
+        return values[0]; // 取回参数的第一个值
+    }
+
+    //取所有值
+    @Override
+    public String[] getParameterValues(String name) {
+        Map&lt;String, String[]&gt; parameterMap = getParameterMap();
+        String[] values = parameterMap.get(name);
+        return values;
+    }
 }</code></pre>
-<h2 id="通过SpringMVC来实现转发和重定向-有视图解析器；"><a href="#通过SpringMVC来实现转发和重定向-有视图解析器；" class="headerlink" title="通过SpringMVC来实现转发和重定向 - 有视图解析器；"></a>通过SpringMVC来实现转发和重定向 - 有视图解析器；</h2><p>重定向 , 不需要视图解析器 , 本质就是重新请求一个新地方嘛 , 所以注意路径问题.</p>
-<p>可以重定向到另外一个请求实现 .</p>
-<pre><code>package com.hecn.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-/**
- * @author 陈朋康
- * @site hecn.gitee.io
- * @discription 通过SpringMVC来实现转发和重定向 - 有视图解析器；
- */
-@Controller
-public class ResultGoThree {
-    @RequestMapping(&quot;/rsm2/t1&quot;)
-    public String test1() {
-        //转发
-        return &quot;admin&quot;;
-    }
-
-    @RequestMapping(&quot;/rsm2/t2&quot;)
-    public String test2() {
-        //转发二
-        return &quot;redirect:/index.jsp&quot;;
-//        return &quot;redirect:hello.do&quot;;
-    }
-
-}</code></pre>
             </div>
             <hr>
             <div>
@@ -492,7 +647,7 @@ public class ResultGoThree {
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "SpringMVC:5、结果跳转方式&nbsp;",
+        "SpringMVC:6、数据处理&nbsp;",
       ],
       cursorChar: "❤",
       typeSpeed: 70,
