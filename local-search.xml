@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>SpringBoot:1、HelloSpringBoot</title>
+    <link href="/2020/04/13/SpringBoot-1%E3%80%81HelloSpringBoot/"/>
+    <url>/2020/04/13/SpringBoot-1%E3%80%81HelloSpringBoot/</url>
+    
+    <content type="html"><![CDATA[<h1 id="什么是SpringBoot"><a href="#什么是SpringBoot" class="headerlink" title="什么是SpringBoot"></a>什么是SpringBoot</h1><p>Spring Boot是由Pivotal团队提供的全新框架，其设计目的是用来<strong>简化新Spring应用的初始搭建以及开发过程</strong>。该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。通过这种方式，Spring Boot致力于在蓬勃发展的快速应用开发领域(rapid application development)成为领导者。</p><p><strong>Spring Boot的主要优点：</strong></p><ul><li>为所有Spring开发者更快的入门</li><li><strong>开箱即用</strong>，提供各种默认配置来简化项目配置</li><li>内嵌式容器简化Web项目</li><li>没有冗余代码生成和XML配置的要求</li></ul><p><strong>SpringBoot框架中还有两个非常重要的策略</strong>：<code>开箱即用</code>和<code>约定优于配置</code>。开箱即用，Outofbox，是指在开发过程中，通过在MAVEN项目的pom文件中添加相关依赖包，然后使用对应注解来代替繁琐的XML配置文件以管理对象的生命周期。这个特点使得开发人员摆脱了复杂的配置工作以及依赖的管理工作，更加专注于业务逻辑。约定优于配置，Convention over configuration，是一种由SpringBoot本身来配置目标结构，由开发者在结构中添加信息的软件设计范式。这一特点虽降低了部分灵活性，增加了BUG定位的复杂性，但减少了开发人员需要做出决定的数量，同时减少了大量的XML配置，并且可以将代码编译、测试和打包等工作自动化。</p><hr><h1 id="HelloWorld"><a href="#HelloWorld" class="headerlink" title="HelloWorld"></a>HelloWorld</h1><h2 id="环境准备："><a href="#环境准备：" class="headerlink" title="环境准备："></a>环境准备：</h2><ul><li>java version “1.8.0_181”</li><li>Maven-3.6.1</li><li>SpringBoot 2.x 最新版</li></ul><hr><h2 id="开发工具："><a href="#开发工具：" class="headerlink" title="开发工具："></a>开发工具：</h2><ul><li>IDEA</li></ul><hr><h2 id="创建项目："><a href="#创建项目：" class="headerlink" title="创建项目："></a>创建项目：</h2><p>Spring官方提供了非常方便的工具让我们快速构建应用</p><p>Spring Initializr：<a href="https://start.spring.io/" target="_blank" rel="noopener">https://start.spring.io/</a></p><hr><h3 id="项目创建方式一：使用Spring-Initializr-的-Web页面创建项目"><a href="#项目创建方式一：使用Spring-Initializr-的-Web页面创建项目" class="headerlink" title="项目创建方式一：使用Spring Initializr 的 Web页面创建项目"></a>项目创建方式一：使用Spring Initializr 的 Web页面创建项目</h3><p>1、打开  <a href="https://start.spring.io/" target="_blank" rel="noopener">https://start.spring.io/</a></p><p>2、填写项目信息</p><p>3、点击”Generate Project“按钮生成项目；下载此项目</p><p>4、解压项目包，并用IDEA以Maven项目导入，一路下一步即可，直到项目导入完毕。</p><p>5、如果是第一次使用，可能速度会比较慢，包比较多、需要耐心等待一切就绪。</p><hr><h3 id="项目创建方式二：使用-IDEA-直接创建项目"><a href="#项目创建方式二：使用-IDEA-直接创建项目" class="headerlink" title="项目创建方式二：使用 IDEA 直接创建项目"></a>项目创建方式二：使用 IDEA 直接创建项目</h3><p>1、创建一个新项目</p><p>2、选择spring initalizr ， 可以看到默认就是去官网的快速构建工具那里实现</p><p>3、填写项目信息</p><p>4、选择初始化的组件（初学勾选 Web 即可）</p><p>5、填写项目路径</p><p>6、等待项目构建成功</p><hr><h3 id="项目结构："><a href="#项目结构：" class="headerlink" title="项目结构："></a>项目结构：</h3><p>通过上面步骤完成了基础项目的创建。就会自动生成以下文件。</p><p>1、程序的主启动类</p><p>2、一个 application.properties 配置文件</p><p>3、一个 测试类</p><p>4、一个 pom.xml</p><hr><h3 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h3><pre><code class="xml">&lt;!-- 父依赖 --&gt;&lt;parent&gt;&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;&lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;&lt;version&gt;2.2.5.RELEASE&lt;/version&gt;&lt;relativePath/&gt;&lt;/parent&gt;&lt;dependencies&gt;&lt;!-- web场景启动器 --&gt;&lt;dependency&gt;    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;    &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;&lt;/dependency&gt;&lt;!-- springboot单元测试 --&gt;&lt;dependency&gt;    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;    &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;    &lt;scope&gt;test&lt;/scope&gt;    &lt;!-- 剔除依赖 --&gt;    &lt;exclusions&gt;        &lt;exclusion&gt;            &lt;groupId&gt;org.junit.vintage&lt;/groupId&gt;            &lt;artifactId&gt;junit-vintage-engine&lt;/artifactId&gt;        &lt;/exclusion&gt;    &lt;/exclusions&gt;&lt;/dependency&gt;&lt;/dependencies&gt;&lt;build&gt;&lt;plugins&gt;    &lt;!-- 打包插件 --&gt;    &lt;plugin&gt;        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;        &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;    &lt;/plugin&gt;&lt;/plugins&gt;&lt;/build&gt;</code></pre><hr><h3 id="编写一个http接口"><a href="#编写一个http接口" class="headerlink" title="编写一个http接口"></a>编写一个http接口</h3><p>1、在主程序的同级目录下，新建一个controller包，<strong>一定要在同级目录下，否则识别不到</strong></p><p>2、在包中新建一个HelloController类</p><pre><code class="java">package com.hecn.controller;import org.springframework.stereotype.Controller;import org.springframework.web.bind.annotation.GetMapping;import org.springframework.web.bind.annotation.Mapping;import org.springframework.web.bind.annotation.RequestMapping;import org.springframework.web.bind.annotation.ResponseBody;/** * @author hecn * @site hecn.gitee.io * @discription */@Controller@RequestMapping(&quot;/index&quot;)public class HelloController {  @GetMapping(&quot;/hello&quot;)  @ResponseBody()  public String hello() {    return &quot;hello&quot;;  }}</code></pre><p>3、编写完毕后，从主程序启动项目，浏览器发起请求，看页面返回；控制台输出了 Tomcat 访问的端口号！</p><hr><h3 id="彩蛋"><a href="#彩蛋" class="headerlink" title="彩蛋"></a>彩蛋</h3><p>如何更改启动时显示的字符拼成的字母，SpringBoot呢？也就是 banner 图案；</p><p>只需一步：到项目下的 resources 目录下新建一个banner.txt 即可。</p><p>图案可以到：<a href="https://www.bootschool.net/ascii" target="_blank" rel="noopener">https://www.bootschool.net/ascii</a> 这个网站生成，然后拷贝到文件中即可！</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>SpringBoot</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>SpringBoot</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>SpringMVC:7、JSON</title>
     <link href="/2020/03/20/SpringMVC-7%E3%80%81JSON/"/>
     <url>/2020/03/20/SpringMVC-7%E3%80%81JSON/</url>
