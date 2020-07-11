@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="hecn">
+  <meta name="keywords" content="">
+  <title>SpringBoot:4、JSR303数据校验及多环境切换 - hecn的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link defer rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>hecn的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">归档</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">分类</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">标签</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">关于</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  星期一, 四月 13日 2020, 1:29 下午
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    1.3k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      5 分钟
+                  </span>
+                
+
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5 z-depth-3" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <div class="markdown-body">
+              <h2 id="JSR303数据校验"><a href="#JSR303数据校验" class="headerlink" title="JSR303数据校验"></a>JSR303数据校验</h2><h3 id="JSR-303"><a href="#JSR-303" class="headerlink" title="JSR-303"></a>JSR-303</h3><p>JSR-303 是 JAVA EE 6 中的一项子规范，叫做 Bean Validation，官方参考实现是Hibernate Validator。此实现与 Hibernate ORM 没有任何关系。 JSR 303 用于对 Java Bean 中的字段的值进行验证。Spring MVC 3.x 之中也大力支持 JSR-303，可以在控制器中对表单提交的数据方便地验证。 注:可以使用注解的方式进行验证。</p>
+<p>Springboot中可以用<code>@validated</code>来校验数据，如果数据异常则会统一抛出异常，方便异常中心统一处理。</p>
+<p><strong>可能需要导入的jar包：</strong>2者选其一即可</p>
+<pre><code class="xml">        &lt;!-- spring-boot-starter-validation --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-validation&lt;/artifactId&gt;
+            &lt;version&gt;2.2.5.RELEASE&lt;/version&gt;
+        &lt;/dependency&gt;
+
+        &lt;!-- hibernate-validator --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.hibernate.validator&lt;/groupId&gt;
+            &lt;artifactId&gt;hibernate-validator&lt;/artifactId&gt;
+            &lt;version&gt;6.1.2.Final&lt;/version&gt;
+        &lt;/dependency&gt;</code></pre>
+<p><strong>例子：</strong>只支持Email格式</p>
+<pre><code class="java">@Component // 注册bean到容器中
+@ConfigurationProperties(prefix = &quot;person&quot;)
+//@PropertySource(value = &quot;classpath:person.properties&quot;)
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Validated // 数据检验
+public class Person {
+  // @Value(&quot;${name}&quot;)
+  @Email(message = &quot;邮箱格式错误&quot;)
+  private String name;
+
+  private Integer age;
+  private Boolean happy;
+  private Date birth;
+  private Map&lt;String, Object&gt; maps;
+  private List&lt;Object&gt; lists;
+  private Hero hero;
+  // 有参无参构造、get、set方法、toString()方法
+}
+</code></pre>
+<p>测试结果：</p>
+<blockquote>
+<p>Field error in object ‘person’ on field ‘name’: rejected value [张三2814f381-bc07-4337-bd4d-9db55fe36076]; codes [Email.person.name,Email.name,Email.java.lang.String,Email]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [person.name,name]; arguments []; default message [name],[Ljavax.validation.constraints.Pattern$Flag;@238b521e,.*]; default message [邮箱格式错误]; origin class path resource [application.yaml]:26:9</p>
+</blockquote>
+<p><strong>使用数据校验，可以保证数据的正确性；</strong> </p>
+<h3 id="常见参数"><a href="#常见参数" class="headerlink" title="常见参数"></a>常见参数</h3><pre><code class="java">@NotNull(message=&quot;名字不能为空&quot;)
+private String userName;
+@Max(value=120,message=&quot;年龄最大不能查过120&quot;)
+private int age;
+@Email(message=&quot;邮箱格式错误&quot;)
+private String email;
+
+空检查
+@Null       验证对象是否为null
+@NotNull    验证对象是否不为null, 无法查检长度为0的字符串
+@NotBlank   检查约束字符串是不是Null还有被Trim的长度是否大于0,只对字符串,且会去掉前后空格.
+@NotEmpty   检查约束元素是否为NULL或者是EMPTY.
+
+Booelan检查
+@AssertTrue     验证 Boolean 对象是否为 true  
+@AssertFalse    验证 Boolean 对象是否为 false  
+
+长度检查
+@Size(min=, max=) 验证对象（Array,Collection,Map,String）长度是否在给定的范围之内  
+@Length(min=, max=) string is between min and max included.
+
+日期检查
+@Past       验证 Date 和 Calendar 对象是否在当前时间之前  
+@Future     验证 Date 和 Calendar 对象是否在当前时间之后  
+@Pattern    验证 String 对象是否符合正则表达式的规则
+
+.......等等
+除此以外，我们还可以自定义一些数据校验规则</code></pre>
+<hr>
+<h2 id="多环境切换"><a href="#多环境切换" class="headerlink" title="多环境切换"></a>多环境切换</h2><p>profile是Spring对不同环境提供不同配置功能的支持，可以通过激活不同的环境版本，实现快速切换环境；</p>
+<h3 id="多配置文件"><a href="#多配置文件" class="headerlink" title="多配置文件"></a>多配置文件</h3><p>我们在主配置文件编写的时候，文件名可以是 application-{profile}.properties/yml , 用来指定多个环境版本；</p>
+<p><strong>例如：</strong></p>
+<p>application-test.properties 代表测试环境配置</p>
+<p>application-dev.properties 代表开发环境配置</p>
+<p>但是Springboot并不会直接启动这些配置文件，它默认使用application.properties主配置文件；</p>
+<p>需要通过一个配置来选择需要激活的环境：</p>
+<pre><code class="properties">#比如在配置文件中指定使用dev环境，我们可以通过设置不同的端口号进行测试；
+#我们启动SpringBoot，就可以看到已经切换到dev下的配置了；
+spring.profiles.active=dev</code></pre>
+<h3 id="yaml的多文档块"><a href="#yaml的多文档块" class="headerlink" title="yaml的多文档块"></a>yaml的多文档块</h3><p>和properties配置文件中一样，但是使用yml去实现不需要创建多个配置文件，更加方便了 !</p>
+<pre><code class="yaml">server:
+  port: 8081
+#选择要激活那个环境块
+spring:
+  profiles:
+    active: prod
+
+---
+server:
+  port: 8083
+spring:
+  profiles: dev #配置环境的名称
+
+
+---
+
+server:
+  port: 8084
+spring:
+  profiles: prod  #配置环境的名称</code></pre>
+<p><strong>注意：如果yml和properties同时都配置了端口，并且没有激活其他环境 ， 默认会使用properties配置文件的！</strong></p>
+<h3 id="配置文件加载位置"><a href="#配置文件加载位置" class="headerlink" title="配置文件加载位置"></a>配置文件加载位置</h3><p>外部加载配置文件的方式十分多，我们选择最常用的即可，在开发的资源文件中进行配置！</p>
+<p>官方外部配置文件说明参考文档:</p>
+<ol>
+<li>file:./config/</li>
+<li>file:./</li>
+<li>classpath:/config/</li>
+<li>classpath:/</li>
+</ol>
+<p>springboot 启动会扫描以下位置的application.properties或者application.yml文件作为Spring boot的默认配置文件：</p>
+<ul>
+<li>优先级1：项目路径下的config文件夹配置文件</li>
+<li>优先级2：项目路径下配置文件</li>
+<li>优先级3：资源路径下的config文件夹配置文件</li>
+<li>优先级4：资源路径下配置文件</li>
+</ul>
+<p>优先级由高到底，高优先级的配置会覆盖低优先级的配置；</p>
+<p>SpringBoot会从这四个位置全部加载主配置文件；互补配置；</p>
+<ol>
+<li>可以通过端口号来测试，在四个位置分别编写一个yaml文件</li>
+</ol>
+<pre><code class="yaml">server:
+  port: 8081</code></pre>
+<ol start="2">
+<li>添加web支持，写一个controller类。</li>
+<li>运行</li>
+</ol>
+<p>结果：优先级和上述一样</p>
+
+            </div>
+            <hr>
+            <div>
+              <p>
+                
+                  <span>
+                <i class="iconfont icon-inbox"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/SpringBoot/">SpringBoot</a>
+                      &nbsp;
+                    
+                  </span>&nbsp;&nbsp;
+                
+                
+                  <span>
+                <i class="iconfont icon-tag"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/SpringBoot/">SpringBoot</a>
+                    
+                  </span>
+                
+              </p>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc-start"></div>
+<div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+    <!-- APlayer 音乐播放器 -->
+    <div id="aplayer"></div>
+    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
+<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+<script type="text/javascript">
+  var oldLoad = window.onload;
+  window.onload = function () {
+    new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      autoplay: 'false' === 'true',
+      loop: 'all',
+      order: 'random',
+      theme: '#b7daff',
+      preload: 'none',
+      audio: [{"name":"说好不哭","artist":"周杰伦","url":"/songs/说好不哭（with 五月天阿信） - 周杰伦.flac","cover":"https://y.gtimg.cn/music/photo_new/T002R300x300M000002gBTVk4JEE2T_2.jpg?max_age=2592000","lrc":"/songs/说好不哭（with 五月天阿信） - 周杰伦.lrc"},{"name":"Like You","artist":"G.E.M.","url":"/songs/喜欢你-G.E.M.邓紫棋.flac","cover":"https://y.gtimg.cn/music/photo_new/T002R300x300M000003voidC3p6EQe_1.jpg?max_age=2592000","lrc":"/songs/喜欢你-G.E.M.邓紫棋.lrc"}]
+    });
+    oldLoad && oldLoad();
+  }
+</script>
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var post = $('#post');
+      var toc = $('#toc');
+      var tocLimMax = post.offset().top + post.height() - navHeight;
+
+      $(window).scroll(function () {
+        var tocLimMin = $('#toc-start').offset().top - navHeight;
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': navHeight,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+      var offset = $('#board-ctn').css('margin-right')
+      $('#toc-ctn').css({
+        'right': offset
+      })
+    });
+  </script>
+
+
+
+
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "SpringBoot:4、JSR303数据校验及多环境切换&nbsp;",
+      ],
+      cursorChar: "❤",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

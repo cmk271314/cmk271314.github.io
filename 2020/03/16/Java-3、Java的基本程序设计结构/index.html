@@ -131,7 +131,7 @@
                   
                   <span class="post-meta">
                     <i class="far fa-chart-bar"></i>
-                    3.6k 字
+                    4.1k 字
                   </span>
                 
 
@@ -139,7 +139,7 @@
                   
                   <span class="post-meta">
                       <i class="far fa-clock"></i>
-                      13 分钟
+                      15 分钟
                   </span>
                 
 
@@ -446,7 +446,43 @@ int nx=(int) Math.round(x);</code></pre>
 <li>如果试图将一个数值从一种类型强制转换为另一种类型，而又超出了目标类型的表示范围，结果就会截断成一个完全不同的值。例如，（byte）300的实际值为44。</li>
 </ul>
 <hr>
-<h1 id="6、字符串"><a href="#6、字符串" class="headerlink" title="6、字符串"></a>6、字符串</h1><h1 id="7、输入输出"><a href="#7、输入输出" class="headerlink" title="7、输入输出"></a>7、输入输出</h1><h1 id="8、控制流程"><a href="#8、控制流程" class="headerlink" title="8、控制流程"></a>8、控制流程</h1><h1 id="9、大数值"><a href="#9、大数值" class="headerlink" title="9、大数值"></a>9、大数值</h1><h1 id="10、数组"><a href="#10、数组" class="headerlink" title="10、数组"></a>10、数组</h1>
+<h1 id="6、字符串"><a href="#6、字符串" class="headerlink" title="6、字符串"></a>6、字符串</h1><p><strong>从概念上讲，Java字符串就是Unicode字符序列。</strong></p>
+<p><strong>Java没有内置的字符串类型，而是在标准Java类库中提供了一个预定义类，很自然地叫做String。每个用双引号括起来的字符串都是String类的一个实例：</strong><code>String e=&quot;rookie&quot;;</code></p>
+<h2 id="子串"><a href="#子串" class="headerlink" title="子串"></a>子串</h2><p>String类的substring方法可以从一个较大的字符串提取出一个子串。</p>
+<p>substring的工作方式有一个优点：容易计算子串的长度。字符串s.substring（a，b）的长度为b-a</p>
+<h2 id="拼接"><a href="#拼接" class="headerlink" title="拼接"></a>拼接</h2><p>与绝大多数的程序设计语言一样，Java语言允许使用+号连接（拼接）两个字符串。</p>
+<p>当将一个字符串与一个非字符串的值进行拼接时，后者被转换成字符串，这种特性通常用在输出语句中。</p>
+<p>如果需要把多个字符串放在一起，用一个定界符分隔，可以使用静态join方法：</p>
+<h2 id="不可变字符串"><a href="#不可变字符串" class="headerlink" title="不可变字符串"></a>不可变字符串</h2><p>String类没有提供用于修改字符串的方法，由于不能修改Java字符串中的字符，所以在Java文档中将String类对象称为不可变字符串。</p>
+<h2 id="检测字符串是否相等"><a href="#检测字符串是否相等" class="headerlink" title="检测字符串是否相等"></a>检测字符串是否相等</h2><p>可以使用<strong>equals</strong>方法检测两个字符串是否相等。</p>
+<p>检测两个字符串是否相等，而不区分大小写，可以使用<strong>equalsIgnoreCase</strong>方法。</p>
+<p><code>==</code>只能够确定两个字符串是否放置在同一个位置上。</p>
+<h2 id="空串与Null"><a href="#空串与Null" class="headerlink" title="空串与Null"></a>空串与Null</h2><p>空串<code>&quot;&quot;</code>是长度为0的字符串。空串是一个Java对象，有自己的串长度（0）和内容（空）。</p>
+<pre><code class="java">String kong=&quot;&quot;;
+
+    if (kong.equals(&quot;&quot;)){
+      System.out.println(&quot;空字符串&quot;);
+
+    }else {
+      System.out.println(&quot;非空&quot;);
+    }
+
+    if (kong.length()==0)
+    {
+      System.out.println(&quot;空字符串&quot;);
+    }else {
+      System.out.println(&quot;非空&quot;);
+    }</code></pre>
+<p>String变量还可以存放一个特殊的值，名为null，这表示目前没有任何对象与该变量关联。</p>
+<pre><code class="jav"> String nullone = null;
+    if (nullone == null) {
+      System.out.println(&quot;null&quot;);
+    } else {
+      System.out.println(nullone);
+    }</code></pre>
+<p>检查一个字符串既不是null也不为空串</p>
+<pre><code class="java">if(str!=null&amp;&amp;str.length()!=0)</code></pre>
+<h2 id="码点与代码单元"><a href="#码点与代码单元" class="headerlink" title="码点与代码单元"></a>码点与代码单元</h2><h2 id="StringAPI"><a href="#StringAPI" class="headerlink" title="StringAPI"></a>StringAPI</h2><h2 id="构建字符串"><a href="#构建字符串" class="headerlink" title="构建字符串"></a>构建字符串</h2><h2 id=""><a href="#" class="headerlink" title=""></a></h2><h1 id="7、输入输出"><a href="#7、输入输出" class="headerlink" title="7、输入输出"></a>7、输入输出</h1><h1 id="8、控制流程"><a href="#8、控制流程" class="headerlink" title="8、控制流程"></a>8、控制流程</h1><h1 id="9、大数值"><a href="#9、大数值" class="headerlink" title="9、大数值"></a>9、大数值</h1><h1 id="10、数组"><a href="#10、数组" class="headerlink" title="10、数组"></a>10、数组</h1>
             </div>
             <hr>
             <div>

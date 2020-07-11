@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="hecn">
+  <meta name="keywords" content="">
+  <title>Java:5、继承 - hecn的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link defer rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>hecn的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">归档</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">分类</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">标签</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">关于</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  星期三, 五月 13日 2020, 9:13 上午
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    4.3k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      15 分钟
+                  </span>
+                
+
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5 z-depth-3" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <div class="markdown-body">
+              <p>利用继承（inheritance），人们可以基于已存在的类构造一个新类。继承已存在的类就是复用（继承）这些类的方法和域。在此基础上，还可以添加一些新的方法和域，以满足新的需求。这是Java程序设计中的一项核心技术。“is-a”关系是继承的一个明显特征</p>
+<h2 id="类、超类和子类"><a href="#类、超类和子类" class="headerlink" title="类、超类和子类"></a>类、超类和子类</h2><h3 id="1、定义子类"><a href="#1、定义子类" class="headerlink" title="1、定义子类"></a>1、定义子类</h3><p><strong>extends</strong>:</p>
+<p>​    关键字<code>extends</code>表明正在构造的新类派生于一个已存在的类。已存在的类称为<strong>超类</strong>（superclass）、<strong>基类</strong>（base class）或<strong>父类</strong>（parent class）；新类称为<strong>子类</strong>（subclass）、<strong>派生类</strong>（derived class）或<strong>孩子类</strong>（child class）。<strong>超类和子类</strong>是Java程序员最常用的两个术语，而了解其他语言的程序员可能更加偏爱使用父类和孩子类，这些都是继承时使用的术语。</p>
+<p><strong>TIP:</strong></p>
+<p><strong>子类比超类拥有的功能更加丰富。</strong></p>
+<p><strong>在Java中，所有的继承都是公有继承，而没有C++中的私有继承和保护继承。</strong></p>
+<p><strong>在通过扩展超类定义子类的时候，仅需要指出子类与超类的不同之处。因此在设计类的时候，应该将通用的方法放在超类中，而将具有特殊用途的方法放在子类中，这种将通用的功能放到超类的做法，在面向对象程序设计中十分普遍。</strong></p>
+<h3 id="2、覆盖方法"><a href="#2、覆盖方法" class="headerlink" title="2、覆盖方法"></a>2、覆盖方法</h3><p>在子类中可以增加域、增加方法或覆盖超类的方法，然而绝对<strong>不能删除</strong>继承的任何域和方法。</p>
+<p>在Java中使用关键字super调用超类的方法</p>
+<p>TIP：</p>
+<blockquote>
+<p>有些人认为super与this引用是类似的概念，实际上，这样比较并不太恰当。这是因为super不是一个对象的引用，不能将super赋给另一个对象变量，它只是一个指示编译器调用超类方法的特殊关键字。</p>
+</blockquote>
+<h3 id="3、子类构造器"><a href="#3、子类构造器" class="headerlink" title="3、子类构造器"></a>3、子类构造器</h3><p>通过super实现对超类构造器的调用。使用super调用构造器的语句必须是子类构造器的第一条语句。</p>
+<p>如果子类的构造器没有显式地调用超类的构造器，则将自动地调用超类默认（没有参数）的构造器。如果超类没有不带参数的构造器，并且在子类的构造器中又没有显式地调用超类的其他构造器，则Java编译器将报告错误。</p>
+<p>TIP：</p>
+<blockquote>
+<p>super关键字也有两个用途：一是调用超类的方法，二是调用超类的构造器。调用构造器的语句只能作为另一个构造器的第一条语句出现。</p>
+</blockquote>
+<p>一个对象变量（例如，变量e）可以指示多种实际类型的现象被称为多态（polymorphism）。在运行时能够自动地选择调用哪个方法的现象称为动态绑定（dynamic binding）,动态绑定是默认的处理方式.</p>
+<h3 id="4、继承层次"><a href="#4、继承层次" class="headerlink" title="4、继承层次"></a>4、继承层次</h3><p>继承并不仅限于一个层次。由一个公共超类派生出来的所有类的集合被称为<strong>继承层次（inheritance hierarchy）</strong>，在继承层次中，从某个特定的类到其祖先的路径被称为该类的<strong>继承链（inheritance chain）</strong>。一个祖先类可以拥有多个子孙继承链。</p>
+<p>tip：</p>
+<blockquote>
+<p>Java不支持多继承</p>
+</blockquote>
+<h3 id="5、多态"><a href="#5、多态" class="headerlink" title="5、多态"></a>5、多态</h3><blockquote>
+<p>有一个用来判断是否应该设计为继承关系的简单规则，这就是“is-a”规则，它表明子类的每个对象也是超类的对象。“is-a”规则的另一种表述法是置换法则。它表明程序中出现超类对象的任何地方都可以用子类对象置换。</p>
+</blockquote>
+<p>在Java程序设计语言中，对象变量是多态的。一个变量既可以引用一个超类对象，也可以引用一个超类的任何一个子类的对象。</p>
+<p>tip：</p>
+<p>子类数组的引用可以转换成超类数组的引用，而不需要采用强制类型转换。</p>
+<p>所有数组都要牢记创建它们的元素类型，并负责监督仅将类型兼容的引用存储到数组中。</p>
+<h3 id="6、理解方法调用"><a href="#6、理解方法调用" class="headerlink" title="6、理解方法调用"></a>6、理解方法调用</h3><p><strong>静态绑定（static binding）</strong>和<strong>动态绑定（dynamic binding）</strong>两种调用方式。</p>
+<p>调用x.f(args)，x是类C的对象。</p>
+<p><strong>调用过程详细描述：</strong></p>
+<ol>
+<li>编译器查看对象的声明类型和方法名。一一列举所有C类中名为f的方法和其超类中访问属性为<code>public</code>且名为f的方法。（编译器获得了所有可能被调用的候选方法）</li>
+<li>编译器查看调用方法时提供的参数类型。所有名为f的方法中存在一个与提供的参数类型完全匹配，就选择这个方法。这个过程被称为<strong>重载解析（overloadingresolution）</strong>。（编译器已获得需要调用的方法名字和参数类型。）</li>
+<li>如果是private方法、static方法、final方法或者构造器，那么编译器将可以准确地知道应该调用哪个方法，这种调用方式称为<strong>静态绑定（static binding）</strong>。</li>
+<li>当程序运行，并且采用动态绑定调用方法时，虚拟机一定调用与x所引用对象的实际类型最合适的那个类的方法。先在实际类型中寻找f方法，如果没有则在其超类中寻找。</li>
+</ol>
+<p><strong>解析过程：</strong></p>
+<ul>
+<li>首先，虚拟机提取x的实际类型的方法表。</li>
+<li>接下来，虚拟机搜索定义getSalary签名的类。此时，虚拟机已经知道应该调用哪个方法。</li>
+<li>最后，虚拟机调用方法。</li>
+</ul>
+<p>tip：</p>
+<blockquote>
+<p>动态绑定有一个非常重要的特性：无需对现存的代码进行修改，就可以对程序进行扩展。</p>
+<p>方法的名字和参数列表称为方法的签名</p>
+<p>每次调用方法都要进行搜索，时间开销相当大。因此，虚拟机预先为每个类创建了一个方法表（method table），其中列出了所有方法的签名和实际调用的方法。</p>
+</blockquote>
+<h3 id="7、阻止继承：final类和方法"><a href="#7、阻止继承：final类和方法" class="headerlink" title="7、阻止继承：final类和方法"></a>7、阻止继承：final类和方法</h3><ul>
+<li><p>不允许扩展的类被称为final类。</p>
+</li>
+<li><p>类中的特定方法也可以被声明为final。如果这样做，子类就不能覆盖这个方法（final类中的所有方法自动地成为final方法）。</p>
+</li>
+<li><p>域也可以被声明为final。对于final域来说，构造对象之后就不允许改变它们的值了。不过，如果将一个类声明为final，只有其中的方法自动地成为final，而<strong>不包括域。</strong></p>
+</li>
+<li><p>将方法或类声明为final主要目的是：确保它们不会在子类中改变语义。</p>
+</li>
+<li><p>如果一个方法没有被覆盖并且很短，编译器就能够对它进行优化处理，这个过程为称为内联（inlining）。</p>
+</li>
+</ul>
+<h3 id="8、强制类型转换"><a href="#8、强制类型转换" class="headerlink" title="8、强制类型转换"></a>8、强制类型转换</h3><ul>
+<li><p>对象引用的转换语法与数值表达式的类型转换类似，仅需要用一对圆括号将目标类名括起来，并放置在需要转换的对象引用之前就可以了。<code>Teacher t1=(Teacher)Student;</code></p>
+</li>
+<li><p>进行类型转换的唯一原因是：在暂时忽视对象的实际类型之后，使用对象的全部功能。</p>
+</li>
+<li><p>将一个子类的引用赋给一个超类变量，编译器是允许的。但<strong>将一个超类的引用赋给一个子类变量，必须进行类型转换，这样才能够通过运行时的检查。</strong></p>
+</li>
+</ul>
+<p>tip:</p>
+<blockquote>
+<p>只能在继承层次内进行类型转换。</p>
+<p>在将超类转换成子类之前，应该使用instanceof进行检查。</p>
+<p>在一般情况下，应该尽量少用类型转换和instanceof运算符。</p>
+</blockquote>
+<h3 id="9、抽象类"><a href="#9、抽象类" class="headerlink" title="9、抽象类"></a>9、抽象类</h3><ul>
+<li><p>为了提高程序的清晰度，包含一个或多个抽象方法的类本身必须被声明为抽象的。</p>
+</li>
+<li><p>除了抽象方法之外，抽象类还可以包含具体数据和具体方法。</p>
+</li>
+<li><p>建议尽量将通用的域和方法（不管是否是抽象的）放在超类（不管是否是抽象类）中。</p>
+</li>
+<li><p>抽象方法充当着占位的角色，它们的具体实现在子类中。扩展抽象类可以有两种选择。一种是在抽象类中定义部分抽象类方法或不定义抽象类方法，这样就必须将子类也标记为抽象类；另一种是定义全部的抽象方法，这样一来，子类就不是抽象的了。</p>
+</li>
+</ul>
+<p><strong>抽象类不能被实例化。</strong>如果将一个类声明为<code>abstract</code>，就不能创建这个类的对象。但可以创建一个具体子类的对象。需要注意，可以定义一个抽象类的对象变量，但是它只能引用非抽象子类的对象。</p>
+<pre><code class="java">new People(1,&quot;tom&quot;);//people是抽象类无法实例化
+People people = new Student(1, &quot;tom&quot;, &quot;02&quot;);//可以定义一个抽象类的对象变量，但是它只能引用非抽象子类的对象。
+
+</code></pre>
+<h3 id="10、受保护访问"><a href="#10、受保护访问" class="headerlink" title="10、受保护访问"></a>10、受保护访问</h3><ul>
+<li><p>最好将类中的域标记为private，而方法标记为public。</p>
+</li>
+<li><p>在实际应用中，要谨慎使用protected属性。</p>
+</li>
+<li><p>受保护的方法更具有实际意义。这种方法的一个最好的示例就是Object类中的clone方法</p>
+</li>
+</ul>
+<p>tip:</p>
+<ol>
+<li>仅对本类可见——private。</li>
+<li>对所有类可见——public。</li>
+<li>对本包和所有子类可见——protected。</li>
+<li>对本包可见——默认（很遗憾），不需要修饰符。</li>
+</ol>
+<hr>
+<h2 id="Object-所有类的超类"><a href="#Object-所有类的超类" class="headerlink" title="Object:所有类的超类"></a>Object:所有类的超类</h2><p>Object类是Java中所有类的始祖，在Java中每个类都是由它扩展而来的。</p>
+<p>如果没有明确地指出超类，Object就被认为是这个类的超类。由于在Java中，每个类都是由Object类扩展而来的，所以，熟悉这个类提供的所有服务十分重要。</p>
+<p>在Java中，只有基本类型（primitive types）不是对象，例如，数值、字符和布尔类型的值都不是对象。所有的数组类型，不管是对象数组还是基本类型的数组都扩展了Object类。</p>
+<h3 id="1、-equals方法"><a href="#1、-equals方法" class="headerlink" title="1、 equals方法"></a>1、 equals方法</h3><p>Object类中的equals方法用于检测一个对象是否等于另外一个对象。在Object类中，这个方法将判断两个对象是否具有相同的引用。</p>
+<p>Java语言规范要求equals方法具有下面的特性：</p>
+<p>1）自反性：对于任何非空引用x，x.equals（x）应该返回true。</p>
+<p>2）对称性：对于任何引用x和y，当且仅当y.equals（x）返回true，x.equals（y）也应该返回true。</p>
+<p>3）传递性：对于任何引用x、y和z，如果x.equals（y）返回true，y.equals（z）返回true，x.equals（z）也应该返回true。</p>
+<p>4）一致性：如果x和y引用的对象没有发生变化，反复调用x.equals（y）应该返回同样的结果。</p>
+<p>5）对于任意非空引用x，x.equals（null）应该返回false。</p>
+<h3 id="3、hashCode方法"><a href="#3、hashCode方法" class="headerlink" title="3、hashCode方法"></a>3、hashCode方法</h3><p>散列码（hash code）是由对象导出的一个整型值。散列码是没有规律的。</p>
+<p>由于hashCode方法定义在Object类中，因此每个<strong>对象</strong>都有一个<strong>默认的</strong>散列码，其值为<strong>对象的存储地址</strong>。</p>
+<p><strong>字符串</strong>的散列码是<strong>由内容导出的</strong>。</p>
+<p>hashCode方法应该返回一个整型数值（也可以是负数），并合理地组合实例域的散列码，以便能够让各个不同的对象产生的散列码更加均匀。</p>
+<h3 id="4、toString方法"><a href="#4、toString方法" class="headerlink" title="4、toString方法"></a>4、toString方法</h3><p>用于返回表示对象值的字符串。</p>
+<hr>
+<h2 id="泛型数组列表"><a href="#泛型数组列表" class="headerlink" title="泛型数组列表"></a>泛型数组列表</h2><p><strong>Java允许在运行时确定数组的大小。</strong></p>
+<p>一旦确定了数组的大小，改变它就不太容易了。在Java中，解决这个问题最简单的方法是使用Java中另外一个被称为ArrayList的类。它使用起来有点像数组，但在添加或删除元素时，具有自动调节数组容量的功能，而不需要为此编写任何代码。</p>
+<p><strong>ArrayList</strong>是一个采用类型参数（type parameter）的泛型类（generic class）。</p>
+<p>size方法将返回数组列表中包含的实际元素数目。``</p>
+<p>tip:</p>
+<ul>
+<li><p>如果调用add且内部数组已经满了，数组列表就将自动地创建一个更大的数组，并将所有的对象从较小的数组中拷贝到较大的数组中。</p>
+</li>
+<li><p>如果已经清楚或能够估计出数组可能存储的元素数量，就可以在填充数组之前调用ensureCapacity方法：<code>arrayList.ensureCapacity(100);</code></p>
+</li>
+<li><p>把初始容量传递给ArrayList构造器:<code>ArrayList&lt;String&gt; arrayList=new ArrayList&lt;&gt;(100);</code></p>
+</li>
+<li><p><strong>数组列表的容量与数组的大小有一个非常重要的区别。如果为数组分配100个元素的存储空间，数组就有100个空位置可以使用。而容量为100个元素的数组列表只是拥有保存100个元素的潜力（实际上，重新分配空间的话，将会超过100），但是在最初，甚至完成初始化构造之后，数组列表根本就不含有任何元素。</strong></p>
+</li>
+<li><p>一旦能够确认数组列表的大小不再发生变化，就可以调用<strong>trimToSize</strong>方法。这个方法将存储区域的大小调整为当前元素数量所需要的存储空间数目。垃圾回收器将回收多余的存储空间。</p>
+</li>
+<li><p>一旦整理了数组列表的大小，添加新元素就需要花时间再次移动存储块，所以应该在确认不会添加任何元素时，再调用<strong>trimToSize</strong>。</p>
+</li>
+</ul>
+<h3 id="1、访问数组列表元素"><a href="#1、访问数组列表元素" class="headerlink" title="1、访问数组列表元素"></a>1、访问数组列表元素</h3><ul>
+<li><p>数组列表自动扩展容量的便利增加了访问元素语法的复杂程度。其原因是ArrayList类并不是Java程序设计语言的一部分；它只是一个由某些人编写且被放在标准库中的一个<strong>实用类</strong>。</p>
+</li>
+<li><p>使用<strong>get</strong>和<strong>set</strong>方法实现访问或改变数组元素的操作，而不使用人们喜爱的[]语法格式。</p>
+</li>
+<li><p>使用<code>toArray</code>方法将数组元素拷贝到一个数组中。</p>
+</li>
+<li><p>在数组列表的中间插入元素，使用带索引参数的<strong>add</strong>方法。为了插入一个新元素，位于n之后的所有元素都要向后移动一个位置。如果插入新元素后，数组列表的大小超过了容量，数组列表就会被重新分配存储空间。</p>
+</li>
+<li><p>使用remove方法从数据列表删除元素。位于这个位置之后的所有元素都向前移动一个位置，并且数组的大小减1。</p>
+</li>
+</ul>
+<pre><code class="java">arrayList.set(0,&quot;tom2&quot;);
+arrayList.get(0);
+b.toArray(a)//(b会直接覆盖掉a中原有的元素)
+list.add(list.size() / 2, &quot;e&quot;);
+list.remove(0);</code></pre>
+<p>tip：</p>
+<blockquote>
+<p>使用add方法为数组添加新元素，而不要使用set方法，它只能替换数组中已经存在的元素内容。</p>
+<p>对数组实施插入和删除元素的操作其效率比较低。对于小型数组来说，这一点不必担心。但如果数组存储的元素数比较多，又经常需要在中间位置插入、删除元素，就应该考虑使用链表了</p>
+</blockquote>
+<hr>
+<h2 id="对象包装器与自动装箱"><a href="#对象包装器与自动装箱" class="headerlink" title="对象包装器与自动装箱"></a>对象包装器与自动装箱</h2><p>有时，需要将int这样的基本类型转换为对象。所有的基本类型都有一个与之对应的类。例如，Integer类对应基本类型int。通常，这些类称为<strong>包装器（wrapper）</strong>。这些对象包装器类拥有很明显的名字：Integer、Long、Float、Double、Short、Byte、Character、Void和Boolean（前6个类派生于公共的超类Number）。</p>
+<ul>
+<li>对象包装器类是不可变的，即一旦构造了包装器，就不允许更改包装在其中的值（类中没有能够改变类对象的方法）。</li>
+<li>同时，对象包装器类还是final，因此不能定义它们的子类。</li>
+</ul>
+<p>自动装箱（autoboxing）：自动将基本数据类型转换为包装器类型</p>
+<p>自动拆箱：自动将包装器类型转换为基本数据类型</p>
+<p>tip：</p>
+<blockquote>
+<p>装箱过程是通过调用包装器的valueOf方法实现的，而拆箱过程是通过调用包装器的 xxxValue方法实现的。（xxx代表对应的基本数据类型）。</p>
+<p>自动装箱规范要求boolean、byte、char≤127，介于-128~127之间的short和int被包装到固定的对象中。例如，如果在前面的例子中将a和b初始化为100，对它们进行比较的结果一定成立。</p>
+<p>由于包装器类引用可以为null，所以自动装箱有可能会抛出一个NullPointerException异常。</p>
+<p>在一个条件表达式中混合使用Integer和Double类型，Integer值就会拆箱，提升为double，再装箱为Double。</p>
+<p>装箱和拆箱是编译器认可的，而不是虚拟机。编译器在生成类的字节码时，插入必要的方法调用。虚拟机只是执行这些字节码。</p>
+</blockquote>
+<hr>
+<h2 id="参数数量可变的方法"><a href="#参数数量可变的方法" class="headerlink" title="参数数量可变的方法"></a>参数数量可变的方法</h2><h2 id="枚举类"><a href="#枚举类" class="headerlink" title="枚举类"></a>枚举类</h2><h2 id="7、"><a href="#7、" class="headerlink" title="7、"></a>7、</h2>
+            </div>
+            <hr>
+            <div>
+              <p>
+                
+                  <span>
+                <i class="iconfont icon-inbox"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
+                      &nbsp;
+                    
+                  </span>&nbsp;&nbsp;
+                
+                
+                  <span>
+                <i class="iconfont icon-tag"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Java/">Java</a>
+                    
+                  </span>
+                
+              </p>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc-start"></div>
+<div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+    <!-- APlayer 音乐播放器 -->
+    <div id="aplayer"></div>
+    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
+<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+<script type="text/javascript">
+  var oldLoad = window.onload;
+  window.onload = function () {
+    new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      autoplay: 'false' === 'true',
+      loop: 'all',
+      order: 'random',
+      theme: '#b7daff',
+      preload: 'none',
+      audio: [{"name":"说好不哭","artist":"周杰伦","url":"/songs/说好不哭（with 五月天阿信） - 周杰伦.flac","cover":"https://y.gtimg.cn/music/photo_new/T002R300x300M000002gBTVk4JEE2T_2.jpg?max_age=2592000","lrc":"/songs/说好不哭（with 五月天阿信） - 周杰伦.lrc"},{"name":"Like You","artist":"G.E.M.","url":"/songs/喜欢你-G.E.M.邓紫棋.flac","cover":"https://y.gtimg.cn/music/photo_new/T002R300x300M000003voidC3p6EQe_1.jpg?max_age=2592000","lrc":"/songs/喜欢你-G.E.M.邓紫棋.lrc"}]
+    });
+    oldLoad && oldLoad();
+  }
+</script>
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var post = $('#post');
+      var toc = $('#toc');
+      var tocLimMax = post.offset().top + post.height() - navHeight;
+
+      $(window).scroll(function () {
+        var tocLimMin = $('#toc-start').offset().top - navHeight;
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': navHeight,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+      var offset = $('#board-ctn').css('margin-right')
+      $('#toc-ctn').css({
+        'right': offset
+      })
+    });
+  </script>
+
+
+
+
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Java:5、继承&nbsp;",
+      ],
+      cursorChar: "❤",
+      typeSpeed: 70,
+      loop: true,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
