@@ -4,6 +4,95 @@
   
   
   <entry>
+    <title>SpringMVC:8、异常处理</title>
+    <link href="/2020/09/14/SpringMVC-8%E3%80%81%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/"/>
+    <url>/2020/09/14/SpringMVC-8%E3%80%81%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>JavaWeb:1、Servlet</title>
+    <link href="/2020/09/08/JavaWeb-1%E3%80%81Servlet/"/>
+    <url>/2020/09/08/JavaWeb-1%E3%80%81Servlet/</url>
+    
+    <content type="html"><![CDATA[<h2 id="Servlet简介"><a href="#Servlet简介" class="headerlink" title="Servlet简介"></a>Servlet简介</h2><p><strong>Servlet（Server Applet）</strong>是Java Servlet的简称，称为<strong>小服务程序或服务连接器</strong>，用Java编写的服务器端程序，具有独立于平台和协议的特性，主要功能在于交互式地浏览和生成数据，生成动态Web内容。</p><p>狭义的Servlet是指Java语言实现的一个接口<strong>，广义的Servlet是指任何实现了这个Servlet接口的类</strong>，一般情况下，人们将Servlet理解为后者。Servlet运行于支持Java的应用服务器中。从原理上讲，Servlet可以响应任何类型的请求，但绝大多数情况下Servlet只用来扩展基于HTTP协议的Web服务器。<br>最早支持Servlet标准的是JavaSoft的Java Web Server，此后，一些其它的基于Java的Web服务器开始支持标准的Servlet。</p><p>常用的Servlet容器：</p><ul><li>Tomcat</li><li>Jetty</li></ul><h2 id="Servlet生命周期"><a href="#Servlet生命周期" class="headerlink" title="Servlet生命周期"></a>Servlet生命周期</h2><p>servlet遵循一定的生命周期，由servlet容器管理。生命周期包含以下过程:</p><ol><li>加载Servlet类</li><li>创建Servlet实例</li><li>调用servlet <code>init()</code>方法</li><li>调用servlet <code>service()</code>方法</li><li>调用servlet <code>destroy()</code>方法</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>JavaWeb</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>JavaWeb</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Linux:1、概述</title>
+    <link href="/2020/08/27/Linux-1%E3%80%81%E6%A6%82%E8%BF%B0/"/>
+    <url>/2020/08/27/Linux-1%E3%80%81%E6%A6%82%E8%BF%B0/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Mysql:常用命令</title>
+    <link href="/2020/08/03/Mysql-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+    <url>/2020/08/03/Mysql-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    
+    <content type="html"><![CDATA[<h2 id="查看表结构及属性"><a href="#查看表结构及属性" class="headerlink" title="查看表结构及属性"></a>查看表结构及属性</h2>]]></content>
+    
+    
+    <categories>
+      
+      <category>Mysql</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Mysql</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>安装MySQL（ZIP版本）</title>
+    <link href="/2020/07/18/%E5%AE%89%E8%A3%85MySQL%EF%BC%88ZIP%E7%89%88%E6%9C%AC%EF%BC%89/"/>
+    <url>/2020/07/18/%E5%AE%89%E8%A3%85MySQL%EF%BC%88ZIP%E7%89%88%E6%9C%AC%EF%BC%89/</url>
+    
+    <content type="html"><![CDATA[<h1 id="安装MySQL（ZIP版本）"><a href="#安装MySQL（ZIP版本）" class="headerlink" title="安装MySQL（ZIP版本）"></a>安装MySQL（ZIP版本）</h1><p>1，去官网下载一个mysql.zip。</p><p>2.解压MySQL安装包到指定目录，我的目录为D:\Program Files\MySql\mysql-5.7.16-winx64，并复制一份my-default.ini文件备用(其实万一改错了，删除解压重新解压呗，嘿嘿，别害怕)。</p><ol start="3"><li>修改my-default.ini文件</li></ol><p>basedir = D:\Program Files\MySql\mysql-5.7.16-winx64</p><p>datadir = D:\Program Files\MySql\mysql-5.7.16-winx64\data</p><p>port = 3306</p><p>!注意：去掉源文件上述三行前面的#</p><ol start="4"><li>添加环境变量</li></ol><p>新建系统变量MYSQL_HOME，变量值为：D:\Program Files\MySql\mysql-5.7.16-winx64</p><p>修改系统变量Path，添加%MYSQL_HOME%\bin</p><ol start="5"><li>注册windows系统服务</li></ol><p>以管理员权限打开cmd，进入D:\Program Files\MySql\mysql-5.7.16-winx64\bin目录下（都会）</p><p>输入服务安装命令：mysqld install MySQL –defaults-file=”D:\Program Files\MySql\mysql-5.7.16-winx64\my-default.ini”<br>注意：看好路径啊</p><p>注：（若之前安装过mysql，但由于某种原因未卸载干净，当再次安装mysql时，会提示此服务已存在。可用sc delete mysql命令）<br>删除之前的版本，再执行mysqld –install命令。</p><p>执行mysqld –initialize<br>执行net start MySQL</p><blockquote><p>mysql采坑，压缩版安装mysql的时候，初始化不要使用mysqld –initialize；</p><p> 使用这个命令会给root用户生成一个随机密码，还需要去一番找，</p><p> 直接使用  mysqld –initialize-insecure</p><p>这样可以初始化root用户密码为空</p></blockquote><p>6.修改root默认密码</p><p>查找MySQL的初始密码，用记事本打开D:\Program Files\MySql\mysql-5.7.16-winx64\data目录下的后缀为err的文件，我的为DESKTOP-KCIHHJT.err</p><p>搜索password关键字，我的信息为：A temporary password is generated for root@localhost: =2v&amp;i*7Nab0r （有搜索快捷键的啊 Ctrl+F？ 好像是吧）</p><p>生成的初始密码为=2v&amp;i*7Nab0r</p><p>执行mysql -uroot -p</p><p>输入上述的初始密码，就可以进入MySQL了</p><p>执行SET PASSWORD = PASSWORD(‘123456’);</p><p>将密码修改为123456</p><p>使用exit退出MySQL，然后就可以使用新密码登陆了。</p><p>然后还有比较好用的工具比如说Navicat啊，官方的小海豚我不太喜欢-。-</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Java面试题：4、Java反射</title>
     <link href="/2020/07/11/Java%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A4%E3%80%81Java%E5%8F%8D%E5%B0%84/"/>
     <url>/2020/07/11/Java%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A4%E3%80%81Java%E5%8F%8D%E5%B0%84/</url>
